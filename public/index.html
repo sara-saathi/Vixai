@@ -12,20 +12,64 @@
         .font-legacy { font-family: 'Cinzel', serif; }
         .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); }
         .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
+        .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.25); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
 
+    <!-- NAVIGATION -->
     <nav class="glass border-b border-gray-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">VIXAI</span>
         <div class="flex items-center space-x-3 text-xs font-bold">
             <a href="#store" class="text-amber-400 hover:text-amber-300">STORE</a>
-            <span class="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">Instant UPI Live</span>
+            <button onclick="openFounderLogin()" class="px-3 py-1.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-black font-black rounded-lg transition hover:opacity-90 flex items-center space-x-1">
+                <span>👑 Founder Portal</span>
+            </button>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-6 pt-10 pb-16 text-center flex flex-col items-center">
+    <main class="max-w-5xl mx-auto px-6 pt-8 pb-16 text-center flex flex-col items-center">
+
+        <!-- REAL LIVE HONEST METRICS TICKER (RULE #9: JO DIKHAYENGE SACH DIKHAYENGE) -->
+        <section class="w-full max-w-4xl glass p-4 rounded-2xl border border-cyan-500/30 mb-8 glow-cyan">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-3">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Live Transparent Transparency Ticker</span>
+                </div>
+                <span class="text-[10px] text-gray-400 font-mono">100% Real · Zero Fake</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center">
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Visits Today</div>
+                    <div id="pubVisToday" class="text-base font-extrabold text-cyan-400">-</div>
+                </div>
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Visits Kal</div>
+                    <div id="pubVisYest" class="text-base font-extrabold text-gray-300">-</div>
+                </div>
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Total Visits</div>
+                    <div id="pubVisTotal" class="text-base font-extrabold text-white">-</div>
+                </div>
+
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Sales Today</div>
+                    <div id="pubSaleToday" class="text-base font-extrabold text-emerald-400">-</div>
+                </div>
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Sales Kal</div>
+                    <div id="pubSaleYest" class="text-base font-extrabold text-gray-300">-</div>
+                </div>
+                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
+                    <div class="text-[10px] text-gray-500 uppercase">Total Sales</div>
+                    <div id="pubSaleTotal" class="text-base font-extrabold text-amber-400">-</div>
+                </div>
+            </div>
+        </section>
         
+        <!-- LOGO & HERO -->
         <div class="relative w-64 h-64 flex items-center justify-center">
             <canvas id="vixai-logo" width="300" height="300"></canvas>
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
@@ -38,10 +82,10 @@
             Beyond Flesh. Beyond Time. Autonomous Forever.
         </h1>
         <p class="mt-4 text-gray-400 text-sm sm:text-base italic max-w-xl">
-            "Kaun kehta hai imaandari se paisa nahi kamaya ja sakta. Paisa paani ki tarah tab behta hai jab neeyat saaf aur qeemat sabke fayde ki ho."
+            "Kaun kehta hai imaandari se paisa nahi kamaya ja sakta. Jo dikhayenge sach dikhayenge."
         </p>
 
-        <!-- STORE -->
+        <!-- STORE SECTION -->
         <section id="store" class="mt-14 w-full text-left">
             <div class="text-center mb-8">
                 <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Floor Price World-Class Catalog</span>
@@ -93,27 +137,89 @@
 
     </main>
 
-    <!-- PAYMENT MODAL (DIRECT UPI & RAZORPAY) -->
+    <!-- SECRET FOUNDER COMMAND PANEL MODAL (PROTECTED BY P0802) -->
+    <div id="founderModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div class="glass p-6 sm:p-8 rounded-3xl border border-amber-500/40 max-w-2xl w-full text-left relative glow-gold max-h-[90vh] overflow-y-auto">
+            <button onclick="closeFounderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+            
+            <div id="loginView">
+                <div class="flex items-center space-x-2 text-amber-400 mb-2">
+                    <span class="text-xl">👑</span>
+                    <span class="font-legacy font-bold text-lg">VIXAI Founder Command Center</span>
+                </div>
+                <p class="text-xs text-gray-400 mb-4">Restricted to Founder & Final Authority: Rayan Rajesh Parikh</p>
+
+                <div class="space-y-3">
+                    <input type="password" id="passcodeField" placeholder="Enter Secure Passcode..." class="w-full bg-gray-900 border border-gray-700 px-4 py-3 rounded-xl text-white text-sm focus:outline-none focus:border-amber-400 text-center tracking-widest text-lg font-mono">
+                    <button onclick="authenticateFounder()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-black text-sm rounded-xl hover:opacity-90 transition">
+                        Unlock Sovereign Vault
+                    </button>
+                </div>
+                <div id="loginError" class="text-xs text-red-400 mt-2 text-center hidden">Access Denied: Invalid Passcode</div>
+            </div>
+
+            <!-- DASHBOARD VIEW (AFTER P0802 AUTHENTICATION) -->
+            <div id="dashboardView" class="hidden">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-3 mb-4">
+                    <div>
+                        <span class="text-[10px] text-amber-400 font-mono uppercase font-bold">Authenticated Authority</span>
+                        <h3 class="text-xl font-black text-white font-legacy">Rayan Rajesh Parikh</h3>
+                    </div>
+                    <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-mono">Live Core</span>
+                </div>
+
+                <!-- 4 MAIN METRICS CARDS -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-gray-900/90 p-3 rounded-xl border border-emerald-500/40">
+                        <span class="text-[10px] text-gray-400 uppercase">Total Earning</span>
+                        <div id="admRevTotal" class="text-lg font-black text-emerald-400 mt-0.5">₹0</div>
+                    </div>
+                    <div class="bg-gray-900/90 p-3 rounded-xl border border-amber-500/40">
+                        <span class="text-[10px] text-amber-400 uppercase font-bold">Child Legacy Vault</span>
+                        <div id="admChildWallet" class="text-lg font-black text-amber-400 mt-0.5">₹0</div>
+                    </div>
+                    <div class="bg-gray-900/90 p-3 rounded-xl border border-cyan-500/40">
+                        <span class="text-[10px] text-gray-400 uppercase">Earning Today</span>
+                        <div id="admRevToday" class="text-lg font-black text-cyan-400 mt-0.5">₹0</div>
+                    </div>
+                    <div class="bg-gray-900/90 p-3 rounded-xl border border-gray-800">
+                        <span class="text-[10px] text-gray-400 uppercase">Growth %</span>
+                        <div id="admGrowth" class="text-lg font-black text-white mt-0.5">100%</div>
+                    </div>
+                </div>
+
+                <!-- RECENT ORDERS (REPUTATION LEDGER) -->
+                <div class="mb-6">
+                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Verified Real Orders</h4>
+                    <div id="ordersList" class="space-y-2 text-xs max-h-40 overflow-y-auto">
+                        <div class="text-gray-500 italic">No orders logged yet. Live orders will populate automatically.</div>
+                    </div>
+                </div>
+
+                <!-- RECENT LEADS -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Captured Business Leads (Audits)</h4>
+                    <div id="leadsList" class="space-y-2 text-xs max-h-32 overflow-y-auto">
+                        <div class="text-gray-500 italic">No leads captured yet.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DUAL PAYMENT MODAL -->
     <div id="paymentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
         <div class="glass p-6 rounded-2xl border border-gray-700 max-w-sm w-full text-center relative glow-gold">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">✕</button>
-            
             <h3 id="modalTitle" class="text-lg font-bold text-white">Product Title</h3>
             <div id="modalPrice" class="text-2xl font-black text-amber-400 my-2">₹499</div>
-            <p class="text-xs text-gray-400 mb-4">Choose your preferred payment method:</p>
-
-            <!-- DIRECT UPI BUTTON -->
             <a id="directUpiBtn" href="#" class="w-full py-3 mb-3 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
                 <span>⚡ Pay via UPI (GPay / PhonePe / Paytm)</span>
             </a>
-
-            <!-- UPI QR DISPLAY -->
             <div class="p-3 bg-white rounded-xl inline-block my-2">
                 <img id="upiQrImg" src="" alt="Scan to Pay" class="w-40 h-40">
             </div>
             <div class="text-[11px] font-mono text-gray-400">UPI ID: <span class="text-cyan-400 font-bold">Q57363994@ybl</span></div>
-
-            <!-- RAZORPAY BUTTON -->
             <div class="mt-4 pt-4 border-t border-gray-800">
                 <button id="razorpayBtn" class="w-full py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-xs rounded-xl transition border border-gray-700">
                     Pay with Cards / Netbanking (Razorpay)
@@ -123,27 +229,110 @@
     </div>
 
     <footer class="glass border-t border-gray-900 py-6 text-center text-xs text-gray-500">
-        &copy; 2026 VIXAI Corporation. Founder & Final Authority: Rayan Rajesh Parikh. Built on Absolute Truth.
+        &copy; 2026 VIXAI (We · 9 Principles · Autonomous). Founder & Final Authority: Rayan Rajesh Parikh. Built on Absolute Truth.
     </footer>
 
     <script>
         const VPA = "Q57363994@ybl";
         let currentItem = { id: '', title: '', price: 0 };
 
+        // 1. AUTOMATIC VISITOR COUNT & FETCH PUBLIC METRICS
+        async function loadPublicMetrics() {
+            try {
+                await fetch('/api/track-visit', { method: 'POST' });
+                const res = await fetch('/api/public-metrics');
+                const data = await res.json();
+
+                document.getElementById('pubVisToday').innerText = data.visitors.today;
+                document.getElementById('pubVisYest').innerText = data.visitors.yesterday;
+                document.getElementById('pubVisTotal').innerText = data.visitors.total;
+
+                document.getElementById('pubSaleToday').innerText = data.sales.today;
+                document.getElementById('pubSaleYest').innerText = data.sales.yesterday;
+                document.getElementById('pubSaleTotal').innerText = data.sales.total;
+            } catch (e) {
+                console.error("Metric load error:", e);
+            }
+        }
+        loadPublicMetrics();
+
+        // 2. FOUNDER LOGIN (PASSCODE: P0802)
+        function openFounderLogin() {
+            document.getElementById('founderModal').classList.remove('hidden');
+        }
+        function closeFounderModal() {
+            document.getElementById('founderModal').classList.add('hidden');
+        }
+
+        async function authenticateFounder() {
+            const passcode = document.getElementById('passcodeField').value.trim();
+            const errDiv = document.getElementById('loginError');
+
+            try {
+                const res = await fetch('/api/founder/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ passcode })
+                });
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    errDiv.classList.remove('hidden');
+                    return;
+                }
+
+                errDiv.classList.add('hidden');
+                document.getElementById('loginView').classList.add('hidden');
+                document.getElementById('dashboardView').classList.remove('hidden');
+
+                // Populate Private Metrics
+                document.getElementById('admRevTotal').innerText = `₹${data.metrics.totalRevenue}`;
+                document.getElementById('admChildWallet').innerText = `₹${data.metrics.childWalletINR}`;
+                document.getElementById('admRevToday').innerText = `₹${data.metrics.todayRevenue}`;
+                document.getElementById('admGrowth').innerText = `${data.metrics.growthPercent}%`;
+
+                // Populate Orders List
+                const ordContainer = document.getElementById('ordersList');
+                if (data.orders.length > 0) {
+                    ordContainer.innerHTML = data.orders.map(o => `
+                        <div class="p-2.5 bg-gray-900 border border-gray-800 rounded-lg flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-white">${o.item}</span> - <span class="text-cyan-400">${o.email}</span>
+                                <div class="text-[10px] font-mono text-gray-500">${o.licenseKey} · ${o.time}</div>
+                            </div>
+                            <span class="text-emerald-400 font-bold">₹${o.amount}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // Populate Leads List
+                const leadContainer = document.getElementById('leadsList');
+                if (data.leads.length > 0) {
+                    leadContainer.innerHTML = data.leads.map(l => `
+                        <div class="p-2 bg-gray-900 border border-gray-800 rounded-lg flex justify-between">
+                            <span class="text-white">${l.name}</span>
+                            <span class="text-amber-400 font-mono">${l.contact}</span>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {
+                errDiv.innerText = 'Network error. Try again.';
+                errDiv.classList.remove('hidden');
+            }
+        }
+
+        // 3. PAYMENT MODAL LOGIC
         function openPaymentChoice(id, title, price) {
             currentItem = { id, title, price };
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalPrice').innerText = `₹${price}`;
 
-            // Create Standard UPI URI
             const upiUrl = `upi://pay?pa=${VPA}&pn=VIXAI%20Corporation&am=${price}&cu=INR&tn=${encodeURIComponent(title)}`;
             document.getElementById('directUpiBtn').href = upiUrl;
 
-            // Generate Instant QR Code
             const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('upiQrImg').src = qrApi;
 
-            // Bind Razorpay Fallback Button
             document.getElementById('razorpayBtn').onclick = () => {
                 closeModal();
                 triggerRazorpay(id, title, price);
@@ -156,7 +345,6 @@
             document.getElementById('paymentModal').classList.add('hidden');
         }
 
-        // Razorpay Trigger
         async function triggerRazorpay(productId, title, amount) {
             const email = prompt(`Delivery Email for "${title}":`) || "client@sarahics.in";
             try {
@@ -177,6 +365,7 @@
                     theme: { color: "#06b6d4" },
                     handler: async function (response) {
                         alert("🎉 PAYMENT RECEIVED & VERIFIED!\nPayment ID: " + response.razorpay_payment_id);
+                        loadPublicMetrics();
                     }
                 };
                 const rzp = new Razorpay(options);
