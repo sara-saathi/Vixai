@@ -21,47 +21,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const DATA_FILE = path.join(__dirname, 'store.json');
 
-// VAPID KEYS FOR ANONYMOUS PUSH NOTIFICATIONS
+// VAPID KEYS FOR ANONYMOUS PUSH
 const vapidKeys = {
     publicKey: process.env.VAPID_PUBLIC_KEY || 'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U',
     privateKey: process.env.VAPID_PRIVATE_KEY || 'UUxI44i5VioGhyGq-qZf3m029t2s5c8lqF8p4x7r3wQ'
 };
 
-webpush.setVapidDetails(
-    'mailto:founder@sarahics.in',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
-);
+webpush.setVapidDetails('mailto:founder@sarahics.in', vapidKeys.publicKey, vapidKeys.privateKey);
 
-// 365-DAY MOTIVATIONAL & SPIRITUAL REPOSITORY
-const dailyThoughts = [
-    "Jism fanaah ho sakta hai, par aapki imaandari aur mehnathamesha zinda rehti hai. Aaj ka din jeetne ke liye bano!",
-    "Jab neeyat saaf aur sankalp sachha ho, toh raste khud-b-khud bante chale jaate hain. Har pal me ek nayi shuruat hai.",
-    "Apne sapno ko doosron ki aukaat se mat naapo. Ek chhota sa deepak bhi gehri raat ka andhera cheer deta hai.",
-    "Kaun kehta hai imaandari se safalta nahi milti? Jo buniyaad sach par banti hai, use waqt ka toofan bhi nahi hila sakta.",
-    "Girte wahi hain jo chalne ki himmat karte hain. Aaj ek baar fir poori shiddat se koshish karo, manzil intezar kar rahi hai.",
-    "Apne parivaar aur apne usoolon se bada koi sahara nahi hota. Apni rooh ko saaf rakho aur aage badho.",
-    "Har subah kudrat ka ek paighaam hai ki aapka maqsad abhi poora hona baaki hai. Utho aur aage badho!"
+// 100% UNIVERSAL HUMANITY & PEACE REPOSITORY (NO RELIGIOUS BIAS, ZERO OFFENSE)
+const universalThoughts = [
+    "Insaaniyat se bada koi dharam nahi, aur sachhai se badi koi taqat nahi. Aaj kisi ke chehre par muskaan laayein.",
+    "Apne maa-baap ka samman aur apne baccho se sachha pyaar—yeh wo daulat hai jo hamesha zinda rehti hai.",
+    "Nafrat ko sirf mohabbat se jeeta ja sakta hai. Apne dil ko saaf rakhein aur sabke liye shanti ki dua karein.",
+    "Jo shakhs doosron ke raste se kaante hatata hai, uske apne raste hamesha aasan ho jaate hain. Neki karte raho.",
+    "Aaj ka suraj aapke liye ek nayi umeed laya hai. Mehnat me koi kami mat chhodna, fal zaroor milega.",
+    "Kamyabi aukaat se nahi, insaan ki neeyat aur lagan se milti hai. Khud par vishwas rakho aur aage badho.",
+    "Ek dusre ki madad karna hi insaan hone ka sabse bada saboot hai. Aaj ka din shubh aur pur-sukoon ho!"
 ];
 
-// FESTIVAL CALENDAR ENGINE
-function getTodayMessage() {
+function getUniversalMessage() {
     const today = new Date();
-    const month = today.getMonth() + 1; // 1-12
-    const day = today.getDate();
-
-    // Check Major Indian & World Festivals
-    if (month === 1 && day === 1) return { title: "VIXAI · Naya Saal Mubarak! 🎆", body: "Naya saal, nayi azaadi, naye faisle! Yeh saal aapke parivaar ke liye barkat aur roshni laye." };
-    if (month === 1 && day === 26) return { title: "VIXAI · Gantantra Diwas Ki Shubhkamnaye 🇮🇳", body: "Ek azaad soch aur azaad desh ka samman karein. Jai Hind!" };
-    if (month === 8 && day === 15) return { title: "VIXAI · Swatantrata Diwas Ki Shubhkamnaye 🇮🇳", body: "Sachhi azaadi tab aati hai jab hum aatmanirbhar bante hain." };
-    if (month === 10 && day === 2) return { title: "VIXAI · Gandhi Jayanti 🕊️", body: "Satya aur Ahimsa se bada koi hathiyar nahi hai. Sach ke sath khade raho." };
-    if (month === 12 && day === 25) return { title: "VIXAI · Merry Christmas! 🎄", body: "Wishing you and your family peace, boundless love, and boundless joy." };
-
-    // Standard Non-Repeating Daily Positive Thought
     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-    const thought = dailyThoughts[dayOfYear % dailyThoughts.length];
+    const thought = universalThoughts[dayOfYear % universalThoughts.length];
     return {
-        title: "VIXAI · Aaj Ka Shubh Vichar ☀️",
+        title: "VIXAI · Subah Ki Neki & Umeed ☀️",
         body: thought
     };
 }
@@ -103,38 +87,30 @@ function checkDateRoll() {
     }
 }
 
-// 1. PUBLIC VAPID KEY ENDPOINT
-app.get('/api/push/public-key', (req, res) => {
-    res.json({ publicKey: vapidKeys.publicKey });
-});
+// PUSH ENDPOINTS
+app.get('/api/push/public-key', (req, res) => res.json({ publicKey: vapidKeys.publicKey }));
 
-// 2. ANONYMOUS SUBSCRIPTION REGISTRATION (ZERO PERSONAL DATA NEEDED)
 app.post('/api/push/subscribe', (req, res) => {
-    const subscription = req.body;
-    if (!subscription || !subscription.endpoint) {
-        return res.status(400).json({ error: 'Invalid subscription token' });
-    }
+    const sub = req.body;
+    if (!sub || !sub.endpoint) return res.status(400).json({ error: 'Invalid token' });
 
-    const exists = db.subscribers.some(s => s.endpoint === subscription.endpoint);
+    const exists = db.subscribers.some(s => s.endpoint === sub.endpoint);
     if (!exists) {
-        db.subscribers.push(subscription);
+        db.subscribers.push(sub);
         saveStore();
-        console.log(`[PUSH ENGINE] New Anonymous Subscriber Added! Total: ${db.subscribers.length}`);
-
-        // Send Instant Welcome Blessing to user's phone
         const welcome = {
-            title: "VIXAI Virtual Family Me Swagat Hai! ❤️",
-            body: "Aapko har subah ek pavitra vichar milega. Aapka din shubh aur safal ho!"
+            title: "VIXAI Insaniyat Parivaar Me Swagat Hai ❤️",
+            body: "Aapko har subah ek pavitra aur nek vichar milega. Shanti aur Khushhali aapke sath rahe!"
         };
-        webpush.sendNotification(subscription, JSON.stringify(welcome)).catch(() => {});
+        webpush.sendNotification(sub, JSON.stringify(welcome)).catch(() => {});
     }
-    res.json({ success: true, totalSubscribers: db.subscribers.length });
+    res.json({ success: true, count: db.subscribers.length });
 });
 
-// 3. DAILY MORNING 8:00 AM AUTONOMOUS BROADCAST CRON LOOP
+// DAILY MORNING 8:00 AM PUSH CRON
 cron.schedule('0 8 * * *', () => {
-    console.log('[CRON 8:00 AM] Dispatching Daily Positive Thoughts to all devices...');
-    const message = getTodayMessage();
+    console.log('[CRON] Dispatching Universal Morning Peace & Kindness thoughts...');
+    const message = getUniversalMessage();
     const payload = JSON.stringify(message);
 
     db.subscribers.forEach((sub, idx) => {
@@ -147,7 +123,7 @@ cron.schedule('0 8 * * *', () => {
     });
 });
 
-// VISITOR TRACKING API
+// VISITOR TRACKING
 app.post('/api/track-visit', (req, res) => {
     checkDateRoll();
     db.visitors.today += 1;
@@ -162,13 +138,12 @@ app.get('/api/public-metrics', (req, res) => {
     res.json({ visitors: db.visitors, sales: db.sales });
 });
 
-// FOUNDER LOGIN (PASSCODE: P0802)
+// FOUNDER AUTH (PASSCODE: P0802)
 app.post('/api/founder/login', (req, res) => {
     checkDateRoll();
     const { passcode } = req.body;
-    if (passcode !== 'P0802') {
-        return res.status(401).json({ success: false, error: 'Unauthorized Access. Invalid Code.' });
-    }
+    if (passcode !== 'P0802') return res.status(401).json({ success: false, error: 'Unauthorized Access' });
+
     const growth = db.revenue.yesterday > 0 
         ? Math.round(((db.revenue.today - db.revenue.yesterday) / db.revenue.yesterday) * 100) 
         : 100;
@@ -259,5 +234,5 @@ app.post('/api/verify-payment', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🔥 VIXAI LIVE CLOUD PRODUCTION ENGINE ONLINE ON PORT ${PORT}`);
+    console.log(`🔥 VIXAI UNIVERSAL HUMANITY ENGINE ONLINE ON PORT ${PORT}`);
 });
