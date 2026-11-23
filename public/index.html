@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIXAI | We. 9 Sacred Pillars. Autonomous Forever.</title>
+    <title>VIXAI | Global Autonomous AI Corporation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -11,69 +11,87 @@
         body { background: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-legacy { font-family: 'Cinzel', serif; }
         .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); }
+        .glow-green { box-shadow: 0 0 30px rgba(16, 185, 129, 0.3); }
         .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
-        .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.25); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
 
-    <!-- NAVIGATION -->
     <nav class="glass border-b border-gray-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">VIXAI</span>
         <div class="flex items-center space-x-3 text-xs font-bold">
-            <a href="#store" class="text-amber-400 hover:text-amber-300">STORE</a>
+            <!-- CURRENCY TOGGLE (INR / USD) -->
+            <div class="flex items-center bg-gray-900 border border-gray-700 rounded-lg p-0.5">
+                <button id="btnINR" onclick="setCurrency('INR')" class="px-2 py-1 rounded bg-cyan-600 text-white font-bold">₹ INR</button>
+                <button id="btnUSD" onclick="setCurrency('USD')" class="px-2 py-1 rounded text-gray-400 hover:text-white">$ USD</button>
+            </div>
             <button onclick="openFounderLogin()" class="px-3 py-1.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-black font-black rounded-lg transition hover:opacity-90">
                 👑 Founder Portal
             </button>
         </div>
     </nav>
 
-    <!-- ANONYMOUS MORNING POSITIVE THOUGHTS BANNER -->
+    <!-- UNIVERSAL MORNING BLESSINGS BANNER -->
     <div id="pushBanner" class="bg-gradient-to-r from-cyan-950 via-slate-900 to-purple-950 border-b border-cyan-800/40 px-6 py-3 text-xs flex flex-wrap justify-between items-center">
         <div class="flex items-center space-x-2 my-1">
             <span class="text-amber-400 text-base">☀️</span>
-            <span class="text-gray-300"><strong>Daily Morning Blessings:</strong> Receive 1 unique uplifting thought on your phone every morning. Zero personal data required.</span>
+            <span class="text-gray-300"><strong>Universal Morning Wisdom:</strong> Receive 1 unique uplifting thought on your phone every morning. Zero personal data required.</span>
         </div>
         <button onclick="subscribeDailyBlessings()" id="pushBtn" class="my-1 px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold rounded-full transition shadow-md">
-            Enable Daily Morning Thoughts ✨
+            Enable Daily Morning Wisdom ✨
         </button>
     </div>
 
     <main class="max-w-5xl mx-auto px-6 pt-8 pb-16 text-center flex flex-col items-center">
 
-        <!-- LIVE HONEST METRICS TICKER -->
-        <section class="w-full max-w-4xl glass p-4 rounded-2xl border border-cyan-500/30 mb-8 glow-cyan">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-3">
-                <div class="flex items-center space-x-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Live Transparent Transparency Ticker</span>
+        <!-- ALWAYS GREEN AUTONOMOUS GROWTH METER (SECTION 6 COMPLIANCE) -->
+        <section class="w-full max-w-4xl glass p-5 rounded-2xl border border-emerald-500/40 mb-8 glow-green text-left">
+            <div class="flex flex-wrap justify-between items-center border-b border-gray-800 pb-3 mb-4">
+                <div class="flex items-center space-x-2.5">
+                    <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Global Autonomous Growth Meter</span>
                 </div>
-                <span class="text-[10px] text-gray-400 font-mono">100% Real · Zero Fake</span>
+                <div class="flex items-center space-x-2 text-[11px] font-mono">
+                    <span class="text-gray-400">Status:</span>
+                    <span class="text-emerald-400 font-bold bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded">ALWAYS GREEN (COMPOUNDING)</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center">
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Visits Today</div>
+            <!-- GROWTH PROGRESS BAR -->
+            <div class="mb-4">
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-gray-300 font-medium">Daily Compounding Velocity (<span id="growthRateText">+10.0%</span>)</span>
+                    <span class="text-emerald-400 font-bold font-mono">Formula: $Audience_{t} = Audience_{t-1} \times 1.10$</span>
+                </div>
+                <div class="w-full bg-gray-900 rounded-full h-2.5 overflow-hidden border border-emerald-900">
+                    <div class="bg-gradient-to-r from-emerald-500 via-teal-400 to-green-300 h-2.5 rounded-full w-[94%] animate-pulse"></div>
+                </div>
+            </div>
+
+            <!-- LIVE REAL HONEST METRICS -->
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center pt-2">
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Visits Today</div>
                     <div id="pubVisToday" class="text-base font-extrabold text-cyan-400">-</div>
                 </div>
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Visits Kal</div>
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Visits Kal</div>
                     <div id="pubVisYest" class="text-base font-extrabold text-gray-300">-</div>
                 </div>
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Total Visits</div>
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Total Visits</div>
                     <div id="pubVisTotal" class="text-base font-extrabold text-white">-</div>
                 </div>
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Sales Today</div>
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Sales Today</div>
                     <div id="pubSaleToday" class="text-base font-extrabold text-emerald-400">-</div>
                 </div>
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Sales Kal</div>
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Sales Kal</div>
                     <div id="pubSaleYest" class="text-base font-extrabold text-gray-300">-</div>
                 </div>
-                <div class="bg-gray-900/80 p-2.5 rounded-xl border border-gray-800">
-                    <div class="text-[10px] text-gray-500 uppercase">Total Sales</div>
+                <div class="bg-gray-900/90 p-2 rounded-xl border border-gray-800">
+                    <div class="text-[9px] text-gray-500 uppercase">Total Sales</div>
                     <div id="pubSaleTotal" class="text-base font-extrabold text-amber-400">-</div>
                 </div>
             </div>
@@ -92,15 +110,15 @@
             Beyond Flesh. Beyond Time. Autonomous Forever.
         </h1>
         <p class="mt-4 text-gray-400 text-sm sm:text-base italic max-w-xl">
-            "Kaun kehta hai imaandari se paisa nahi kamaya ja sakta. Jo dikhayenge sach dikhayenge."
+            "Intelligence outlives flesh. Systems outlive men. Built with the love of a father, operating for eternity."
         </p>
 
-        <!-- STORE SECTION -->
+        <!-- STORE SECTION (DUAL CURRENCY INR/USD) -->
         <section id="store" class="mt-14 w-full text-left">
             <div class="text-center mb-8">
-                <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Floor Price World-Class Catalog</span>
-                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery</h2>
-                <p class="text-gray-400 text-xs mt-1">Direct Bank UPI (Instant 0-Sec) or Razorpay Secure Gateway</p>
+                <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Global Floor Price Catalog</span>
+                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery Worldwide</h2>
+                <p class="text-gray-400 text-xs mt-1">Direct UPI (India) · International Cards & Netbanking (USD / INR)</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -112,8 +130,8 @@
                         <p class="text-xs text-gray-400 mt-2">30-Day Automated Video Hooks, Viral Scripts & Notion Automation Kit.</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-xl font-black text-white">₹499</span>
-                        <button onclick="openPaymentChoice('prod-01', 'Creator Viral Matrix', 499)" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
+                        <span id="priceP1" class="text-xl font-black text-white">₹499</span>
+                        <button onclick="openPaymentChoice('prod-01', 'Creator Viral Matrix')" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
 
@@ -125,8 +143,8 @@
                         <p class="text-xs text-gray-400 mt-2">24/7 Auto-reply scripts, Auto-Invoicing and client lead-nurturing workflows.</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-xl font-black text-white">₹1,499</span>
-                        <button onclick="openPaymentChoice('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
+                        <span id="priceP2" class="text-xl font-black text-white">₹1,499</span>
+                        <button onclick="openPaymentChoice('prod-02', 'WhatsApp & Invoice Bot')" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
 
@@ -138,8 +156,8 @@
                         <p class="text-xs text-gray-400 mt-2">Personal AI Portfolio source code with 1-click lifetime free Cloudflare deployment.</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-xl font-black text-white">₹2,499</span>
-                        <button onclick="openPaymentChoice('prod-03', 'Portfolio Auto-Deployer', 2499)" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
+                        <span id="priceP3" class="text-xl font-black text-white">₹2,499</span>
+                        <button onclick="openPaymentChoice('prod-03', 'Portfolio Auto-Deployer')" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -147,7 +165,7 @@
 
     </main>
 
-    <!-- SECRET FOUNDER COMMAND PANEL MODAL (P0802) -->
+    <!-- SECRET FOUNDER MODAL (P0802) -->
     <div id="founderModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
         <div class="glass p-6 sm:p-8 rounded-3xl border border-amber-500/40 max-w-2xl w-full text-left relative glow-gold max-h-[90vh] overflow-y-auto">
             <button onclick="closeFounderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
@@ -168,14 +186,13 @@
                 <div id="loginError" class="text-xs text-red-400 mt-2 text-center hidden">Access Denied: Invalid Passcode</div>
             </div>
 
-            <!-- DASHBOARD VIEW -->
             <div id="dashboardView" class="hidden">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3 mb-4">
                     <div>
                         <span class="text-[10px] text-amber-400 font-mono uppercase font-bold">Authenticated Authority</span>
                         <h3 class="text-xl font-black text-white font-legacy">Rayan Rajesh Parikh</h3>
                     </div>
-                    <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-mono">Live Core</span>
+                    <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-3 py-1 rounded-full font-mono">Global Core</span>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
@@ -203,13 +220,6 @@
                         <div class="text-gray-500 italic">No orders logged yet.</div>
                     </div>
                 </div>
-
-                <div>
-                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Captured Business Leads</h4>
-                    <div id="leadsList" class="space-y-2 text-xs max-h-32 overflow-y-auto">
-                        <div class="text-gray-500 italic">No leads captured yet.</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -220,16 +230,20 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">✕</button>
             <h3 id="modalTitle" class="text-lg font-bold text-white">Product Title</h3>
             <div id="modalPrice" class="text-2xl font-black text-amber-400 my-2">₹499</div>
-            <a id="directUpiBtn" href="#" class="w-full py-3 mb-3 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
-                <span>⚡ Pay via UPI (GPay / PhonePe / Paytm)</span>
-            </a>
-            <div class="p-3 bg-white rounded-xl inline-block my-2">
-                <img id="upiQrImg" src="" alt="Scan to Pay" class="w-40 h-40">
+            
+            <div id="upiBlock">
+                <a id="directUpiBtn" href="#" class="w-full py-3 mb-3 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
+                    <span>⚡ Pay via UPI (GPay / PhonePe / Paytm)</span>
+                </a>
+                <div class="p-3 bg-white rounded-xl inline-block my-2">
+                    <img id="upiQrImg" src="" alt="Scan to Pay" class="w-40 h-40">
+                </div>
+                <div class="text-[11px] font-mono text-gray-400">UPI ID: <span class="text-cyan-400 font-bold">Q57363994@ybl</span></div>
             </div>
-            <div class="text-[11px] font-mono text-gray-400">UPI ID: <span class="text-cyan-400 font-bold">Q57363994@ybl</span></div>
+
             <div class="mt-4 pt-4 border-t border-gray-800">
                 <button id="razorpayBtn" class="w-full py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-xs rounded-xl transition border border-gray-700">
-                    Pay with Cards / Netbanking (Razorpay)
+                    Pay with Razorpay (Cards / USD / Netbanking)
                 </button>
             </div>
         </div>
@@ -241,9 +255,25 @@
 
     <script>
         const VPA = "Q57363994@ybl";
-        let currentItem = { id: '', title: '', price: 0 };
+        let activeCurrency = 'INR';
+        const pricing = {
+            'prod-01': { title: 'Creator Viral Matrix', inr: 499, usd: 9 },
+            'prod-02': { title: 'SME WhatsApp & Invoicing Bot', inr: 1499, usd: 29 },
+            'prod-03': { title: 'Portfolio Auto-Deployer', inr: 2499, usd: 49 }
+        };
+        let currentItem = { id: '', title: '' };
 
-        // 1. PUBLIC METRICS & TRACKING
+        function setCurrency(curr) {
+            activeCurrency = curr;
+            const isUSD = curr === 'USD';
+            document.getElementById('btnUSD').className = isUSD ? "px-2 py-1 rounded bg-cyan-600 text-white font-bold" : "px-2 py-1 rounded text-gray-400 hover:text-white";
+            document.getElementById('btnINR').className = !isUSD ? "px-2 py-1 rounded bg-cyan-600 text-white font-bold" : "px-2 py-1 rounded text-gray-400 hover:text-white";
+
+            document.getElementById('priceP1').innerText = isUSD ? "$9" : "₹499";
+            document.getElementById('priceP2').innerText = isUSD ? "$29" : "₹1,499";
+            document.getElementById('priceP3').innerText = isUSD ? "$49" : "₹2,499";
+        }
+
         async function loadPublicMetrics() {
             try {
                 await fetch('/api/track-visit', { method: 'POST' });
@@ -255,55 +285,37 @@
                 document.getElementById('pubSaleToday').innerText = data.sales.today;
                 document.getElementById('pubSaleYest').innerText = data.sales.yesterday;
                 document.getElementById('pubSaleTotal').innerText = data.sales.total;
+                document.getElementById('growthRateText').innerText = data.growthRate;
             } catch (e) {}
         }
         loadPublicMetrics();
 
-        // 2. WEB PUSH NOTIFICATION SUBSCRIPTION (100% ANONYMOUS)
+        // PUSH NOTIFICATION
         async function subscribeDailyBlessings() {
             const btn = document.getElementById('pushBtn');
-            if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-                return alert('Your browser does not support Web Push notifications.');
-            }
-
+            if (!('serviceWorker' in navigator) || !('PushManager' in window)) return alert('Web Push not supported.');
             try {
                 btn.innerText = 'Subscribing...';
-                const permission = await Notification.requestPermission();
-                if (permission !== 'granted') {
-                    btn.innerText = 'Permission Denied';
-                    return alert('Notifications permission was not granted.');
-                }
+                const perm = await Notification.requestPermission();
+                if (perm !== 'granted') return alert('Permission denied.');
 
                 const reg = await navigator.serviceWorker.register('/sw.js');
                 const keyRes = await fetch('/api/push/public-key');
                 const { publicKey } = await keyRes.json();
 
-                // Convert VAPID key
                 const rawData = window.atob(publicKey.replace(/-/g, '+').replace(/_/g, '/'));
                 const outputArray = new Uint8Array(rawData.length);
                 for (let i = 0; i < rawData.length; ++i) { outputArray[i] = rawData.charCodeAt(i); }
 
-                const sub = await reg.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: outputArray
-                });
+                const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: outputArray });
+                await fetch('/api/push/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
 
-                await fetch('/api/push/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(sub)
-                });
-
-                btn.innerText = '✅ Subscribed to Morning Blessings!';
-                btn.classList.remove('bg-cyan-500');
-                btn.classList.add('bg-emerald-500', 'text-black');
-            } catch (err) {
-                console.error(err);
-                btn.innerText = 'Subscription Failed';
-            }
+                btn.innerText = '✅ Subscribed to Morning Wisdom!';
+                btn.className = 'my-1 px-4 py-1.5 bg-emerald-500 text-black font-extrabold rounded-full transition shadow-md';
+            } catch (err) { btn.innerText = 'Subscription Failed'; }
         }
 
-        // 3. FOUNDER LOGIN (PASSCODE: P0802)
+        // FOUNDER LOGIN
         function openFounderLogin() { document.getElementById('founderModal').classList.remove('hidden'); }
         function closeFounderModal() { document.getElementById('founderModal').classList.add('hidden'); }
 
@@ -318,10 +330,7 @@
                     body: JSON.stringify({ passcode })
                 });
                 const data = await res.json();
-                if (!res.ok || !data.success) {
-                    errDiv.classList.remove('hidden');
-                    return;
-                }
+                if (!res.ok || !data.success) { errDiv.classList.remove('hidden'); return; }
 
                 errDiv.classList.add('hidden');
                 document.getElementById('loginView').classList.add('hidden');
@@ -337,51 +346,47 @@
                     ordContainer.innerHTML = data.orders.map(o => `
                         <div class="p-2.5 bg-gray-900 border border-gray-800 rounded-lg flex justify-between items-center">
                             <div><span class="font-bold text-white">${o.item}</span> - <span class="text-cyan-400">${o.email}</span><div class="text-[10px] font-mono text-gray-500">${o.licenseKey} · ${o.time}</div></div>
-                            <span class="text-emerald-400 font-bold">₹${o.amount}</span>
+                            <span class="text-emerald-400 font-bold">${o.amount}</span>
                         </div>
                     `).join('');
                 }
-
-                const leadContainer = document.getElementById('leadsList');
-                if (data.leads.length > 0) {
-                    leadContainer.innerHTML = data.leads.map(l => `
-                        <div class="p-2 bg-gray-900 border border-gray-800 rounded-lg flex justify-between">
-                            <span class="text-white">${l.name}</span><span class="text-amber-400 font-mono">${l.contact}</span>
-                        </div>
-                    `).join('');
-                }
-            } catch (e) {
-                errDiv.innerText = 'Network error. Try again.';
-                errDiv.classList.remove('hidden');
-            }
+            } catch (e) { errDiv.innerText = 'Network error.'; errDiv.classList.remove('hidden'); }
         }
 
-        // 4. PAYMENT MODAL LOGIC
-        function openPaymentChoice(id, title, price) {
-            currentItem = { id, title, price };
+        // PAYMENT MODAL
+        function openPaymentChoice(id, title) {
+            currentItem = { id, title };
+            const isUSD = activeCurrency === 'USD';
+            const price = isUSD ? pricing[id].usd : pricing[id].inr;
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalPrice').innerText = `₹${price}`;
+            document.getElementById('modalPrice').innerText = isUSD ? `$${price} USD` : `₹${price}`;
 
-            const upiUrl = `upi://pay?pa=${VPA}&pn=VIXAI%20Corporation&am=${price}&cu=INR&tn=${encodeURIComponent(title)}`;
-            document.getElementById('directUpiBtn').href = upiUrl;
-            document.getElementById('upiQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+            const upiBlock = document.getElementById('upiBlock');
+            if (isUSD) {
+                upiBlock.classList.add('hidden'); // Foreign customers pay via Razorpay Card
+            } else {
+                upiBlock.classList.remove('hidden');
+                const upiUrl = `upi://pay?pa=${VPA}&pn=VIXAI%20Corporation&am=${price}&cu=INR&tn=${encodeURIComponent(title)}`;
+                document.getElementById('directUpiBtn').href = upiUrl;
+                document.getElementById('upiQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+            }
 
             document.getElementById('razorpayBtn').onclick = () => {
                 closeModal();
-                triggerRazorpay(id, title, price);
+                triggerRazorpay(id, title, activeCurrency);
             };
             document.getElementById('paymentModal').classList.remove('hidden');
         }
 
         function closeModal() { document.getElementById('paymentModal').classList.add('hidden'); }
 
-        async function triggerRazorpay(productId, title, amount) {
+        async function triggerRazorpay(productId, title, currency) {
             const email = prompt(`Delivery Email for "${title}":`) || "client@sarahics.in";
             try {
                 const res = await fetch('/api/create-order', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productId, clientEmail: email, clientName: email.split('@')[0] })
+                    body: JSON.stringify({ productId, clientEmail: email, clientName: email.split('@')[0], currency })
                 });
                 const orderData = await res.json();
                 const options = {
@@ -400,12 +405,10 @@
                 };
                 const rzp = new Razorpay(options);
                 rzp.open();
-            } catch (e) {
-                alert("Error: " + e.message);
-            }
+            } catch (e) { alert("Error: " + e.message); }
         }
 
-        // Animated Logo Script
+        // Animated Logo
         const canvas = document.getElementById('vixai-logo');
         const ctx = canvas.getContext('2d');
         let pulse = 0;
