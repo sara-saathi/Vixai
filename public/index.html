@@ -11,20 +11,16 @@
         body { background: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-legacy { font-family: 'Cinzel', serif; }
         .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); }
-        .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.25); }
-        .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.2); }
+        .glow-gold { box-shadow: 0 0 35px rgba(245, 158, 11, 0.25); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
 
     <nav class="glass border-b border-gray-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-            <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">VIXAI</span>
-        </div>
-        <div class="flex items-center space-x-4 text-xs font-bold">
-            <a href="#store" class="text-amber-400 hover:text-amber-300 transition">PRODUCTION STORE</a>
-            <a href="#vault" class="text-cyan-400 hover:text-cyan-300 transition">ROYALTY VAULT</a>
+        <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">VIXAI</span>
+        <div class="flex items-center space-x-3 text-xs font-bold">
+            <a href="#store" class="text-amber-400 hover:text-amber-300">STORE</a>
+            <span class="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">Instant UPI Live</span>
         </div>
     </nav>
 
@@ -38,21 +34,6 @@
             </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-center gap-3 sm:gap-6">
-            <div class="glass px-4 py-2 rounded-xl border border-cyan-500/30 flex items-center space-x-2">
-                <span class="font-legacy font-black text-cyan-400 text-lg">V</span>
-                <span class="text-xs text-gray-300"><strong>WE</strong> (Together)</span>
-            </div>
-            <div class="glass px-4 py-2 rounded-xl border border-amber-500/30 flex items-center space-x-2">
-                <span class="font-legacy font-black text-amber-400 text-lg">IX</span>
-                <span class="text-xs text-gray-300"><strong>9</strong> (Pillars)</span>
-            </div>
-            <div class="glass px-4 py-2 rounded-xl border border-purple-500/30 flex items-center space-x-2">
-                <span class="font-legacy font-black text-purple-400 text-lg">AI</span>
-                <span class="text-xs text-gray-300"><strong>AUTONOMOUS</strong></span>
-            </div>
-        </div>
-
         <h1 class="font-legacy text-3xl sm:text-5xl font-black text-white mt-8 leading-tight">
             Beyond Flesh. Beyond Time. Autonomous Forever.
         </h1>
@@ -60,48 +41,16 @@
             "Kaun kehta hai imaandari se paisa nahi kamaya ja sakta. Paisa paani ki tarah tab behta hai jab neeyat saaf aur qeemat sabke fayde ki ho."
         </p>
 
-        <!-- ROYALTY VAULT -->
-        <section id="vault" class="mt-10 w-full max-w-2xl glass p-6 rounded-2xl border border-amber-500/40 text-left glow-gold">
-            <div class="flex items-center justify-between">
-                <div>
-                    <span class="text-xs uppercase text-amber-400 font-bold tracking-wider">The Rayan Rajesh Parikh Legacy Protocol</span>
-                    <h3 class="text-lg font-bold text-white mt-0.5">Perpetual Beneficiary Royalty Vault</h3>
-                </div>
-                <span class="text-xs bg-amber-950 text-amber-400 border border-amber-800 px-3 py-1 rounded-full font-mono">20% Irrevocable</span>
-            </div>
-            <p class="text-xs text-gray-300 mt-2 leading-relaxed">
-                Har transaction ka 20% flat royalty seedha mere bete ke sovereign vault me jata hai. Yeh passive income 24/7/365 compounding karegi.
-            </p>
-        </section>
-
-        <!-- FREE AI AUDIT (LEAD MAGNET) -->
-        <section id="audit" class="mt-12 w-full max-w-2xl glass p-6 sm:p-8 rounded-2xl border border-cyan-500/30 text-left glow-cyan">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold text-white">⚡ Get Free Instant AI Business Audit</h3>
-                <span class="text-[10px] bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800">100% Free</span>
-            </div>
-            <p class="text-xs text-gray-400 mt-1">Apna naam aur contact daalein. Hamara AI agent turant aapki business leakages report generate karega.</p>
-
-            <form onsubmit="handleAudit(event)" class="mt-4 space-y-3">
-                <input type="text" id="leadName" placeholder="Your Full Name / Business Name" required class="w-full bg-gray-900 border border-gray-700 px-4 py-2.5 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400">
-                <input type="text" id="leadContact" placeholder="WhatsApp Number or Email" required class="w-full bg-gray-900 border border-gray-700 px-4 py-2.5 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400">
-                <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold text-sm rounded-lg hover:opacity-90 transition">
-                    Generate My Free Report
-                </button>
-            </form>
-            <div id="auditOutput" class="hidden mt-4 p-4 bg-gray-900 rounded-xl border border-cyan-500/40 text-xs"></div>
-        </section>
-
-        <!-- PRODUCTION STORE (RAZORPAY STANDARD WEB CHECKOUT) -->
-        <section id="store" class="mt-16 w-full text-left">
+        <!-- STORE -->
+        <section id="store" class="mt-14 w-full text-left">
             <div class="text-center mb-8">
                 <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Floor Price World-Class Catalog</span>
-                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery (Razorpay Secure)</h2>
-                <p class="text-gray-400 text-xs mt-1">UPI (GPay / PhonePe / Paytm) · Cards · Netbanking · Instant Cryptographic License</p>
+                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery</h2>
+                <p class="text-gray-400 text-xs mt-1">Direct Bank UPI (Instant 0-Sec) or Razorpay Secure Gateway</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- PRODUCT 1 -->
+                <!-- PROD 1 -->
                 <div class="glass p-6 rounded-2xl border border-purple-500/30 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] font-mono text-purple-400 font-bold uppercase">Gen-Z Studio</span>
@@ -110,11 +59,11 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹499</span>
-                        <button onclick="startCheckout('prod-01', 'Creator Viral Matrix', 499)" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
+                        <button onclick="openPaymentChoice('prod-01', 'Creator Viral Matrix', 499)" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
 
-                <!-- PRODUCT 2 -->
+                <!-- PROD 2 -->
                 <div class="glass p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">SME Automation</span>
@@ -123,11 +72,11 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹1,499</span>
-                        <button onclick="startCheckout('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
+                        <button onclick="openPaymentChoice('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
 
-                <!-- PRODUCT 3 -->
+                <!-- PROD 3 -->
                 <div class="glass p-6 rounded-2xl border border-emerald-500/30 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">High-Margin Web</span>
@@ -136,7 +85,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹2,499</span>
-                        <button onclick="startCheckout('prod-03', 'Portfolio Auto-Deployer', 2499)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
+                        <button onclick="openPaymentChoice('prod-03', 'Portfolio Auto-Deployer', 2499)" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-bold text-xs rounded-lg transition shadow-lg">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -144,19 +93,103 @@
 
     </main>
 
+    <!-- PAYMENT MODAL (DIRECT UPI & RAZORPAY) -->
+    <div id="paymentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="glass p-6 rounded-2xl border border-gray-700 max-w-sm w-full text-center relative glow-gold">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">✕</button>
+            
+            <h3 id="modalTitle" class="text-lg font-bold text-white">Product Title</h3>
+            <div id="modalPrice" class="text-2xl font-black text-amber-400 my-2">₹499</div>
+            <p class="text-xs text-gray-400 mb-4">Choose your preferred payment method:</p>
+
+            <!-- DIRECT UPI BUTTON -->
+            <a id="directUpiBtn" href="#" class="w-full py-3 mb-3 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
+                <span>⚡ Pay via UPI (GPay / PhonePe / Paytm)</span>
+            </a>
+
+            <!-- UPI QR DISPLAY -->
+            <div class="p-3 bg-white rounded-xl inline-block my-2">
+                <img id="upiQrImg" src="" alt="Scan to Pay" class="w-40 h-40">
+            </div>
+            <div class="text-[11px] font-mono text-gray-400">UPI ID: <span class="text-cyan-400 font-bold">Q57363994@ybl</span></div>
+
+            <!-- RAZORPAY BUTTON -->
+            <div class="mt-4 pt-4 border-t border-gray-800">
+                <button id="razorpayBtn" class="w-full py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-xs rounded-xl transition border border-gray-700">
+                    Pay with Cards / Netbanking (Razorpay)
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="glass border-t border-gray-900 py-6 text-center text-xs text-gray-500">
-        &copy; 2025 VIXAI (We · 9 Principles · Autonomous). Founder & Final Authority: Rayan Rajesh Parikh. Built on Absolute Truth.
+        &copy; 2026 VIXAI Corporation. Founder & Final Authority: Rayan Rajesh Parikh. Built on Absolute Truth.
     </footer>
 
     <script>
-        // 1. LIVE 9-NODE LOGO SCRIPT
+        const VPA = "Q57363994@ybl";
+        let currentItem = { id: '', title: '', price: 0 };
+
+        function openPaymentChoice(id, title, price) {
+            currentItem = { id, title, price };
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = `₹${price}`;
+
+            // Create Standard UPI URI
+            const upiUrl = `upi://pay?pa=${VPA}&pn=VIXAI%20Corporation&am=${price}&cu=INR&tn=${encodeURIComponent(title)}`;
+            document.getElementById('directUpiBtn').href = upiUrl;
+
+            // Generate Instant QR Code
+            const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('upiQrImg').src = qrApi;
+
+            // Bind Razorpay Fallback Button
+            document.getElementById('razorpayBtn').onclick = () => {
+                closeModal();
+                triggerRazorpay(id, title, price);
+            };
+
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        // Razorpay Trigger
+        async function triggerRazorpay(productId, title, amount) {
+            const email = prompt(`Delivery Email for "${title}":`) || "client@sarahics.in";
+            try {
+                const res = await fetch('/api/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId, clientEmail: email, clientName: email.split('@')[0] })
+                });
+                const orderData = await res.json();
+                const options = {
+                    key: orderData.key_id,
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: "VIXAI Corporation",
+                    description: title,
+                    order_id: orderData.order_id,
+                    prefill: { email: email },
+                    theme: { color: "#06b6d4" },
+                    handler: async function (response) {
+                        alert("🎉 PAYMENT RECEIVED & VERIFIED!\nPayment ID: " + response.razorpay_payment_id);
+                    }
+                };
+                const rzp = new Razorpay(options);
+                rzp.open();
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        }
+
+        // Animated Logo Script
         const canvas = document.getElementById('vixai-logo');
         const ctx = canvas.getContext('2d');
         let pulse = 0;
-        const nineNodes = [];
-        for (let i = 0; i < 9; i++) {
-            nineNodes.push({ angle: (i * (Math.PI * 2 / 9)), speed: 0.015, radius: 88, color: i === 7 ? '#c084fc' : (i === 8 ? '#34d399' : '#38bdf8') });
-        }
         function animate() {
             ctx.clearRect(0, 0, 300, 300);
             pulse += 0.03;
@@ -165,133 +198,9 @@
             ctx.strokeStyle = 'rgba(6, 182, 212, 0.3)';
             ctx.lineWidth = 1.5;
             ctx.stroke();
-
-            ctx.beginPath();
-            ctx.ellipse(150, 150, 95 + Math.cos(pulse)*3, 40, -Math.PI / 4, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-
-            nineNodes.forEach((node) => {
-                node.angle += node.speed;
-                const x = 150 + Math.cos(node.angle) * node.radius;
-                const y = 150 + Math.sin(node.angle) * (node.radius * 0.45);
-                ctx.beginPath();
-                ctx.arc(x, y, 4, 0, Math.PI * 2);
-                ctx.fillStyle = node.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = node.color;
-                ctx.fill();
-            });
             requestAnimationFrame(animate);
         }
         animate();
-
-        // 2. LEAD AUDIT FUNCTION
-        async function handleAudit(e) {
-            e.preventDefault();
-            const name = document.getElementById('leadName').value;
-            const contact = document.getElementById('leadContact').value;
-            const out = document.getElementById('auditOutput');
-            out.classList.remove('hidden');
-            out.innerHTML = '<span class="text-cyan-400 animate-pulse">Running Vanguard AI Audit...</span>';
-
-            try {
-                const res = await fetch('/api/audit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, contact })
-                });
-                const data = await res.json();
-                if(data.success) {
-                    out.innerHTML = `
-                        <div class="text-emerald-400 font-bold">✅ Audit Report Dispatched for ${data.audit.client}</div>
-                        <ul class="mt-2 space-y-1 text-gray-300">
-                            ${data.audit.findings.map(f => `<li>• ${f}</li>`).join('')}
-                        </ul>
-                        <div class="mt-3 text-[11px] text-amber-400 font-bold">Floor Price Solution Recommended: WhatsApp Bot at ₹1,499.</div>
-                    `;
-                }
-            } catch (err) {
-                out.innerHTML = '<span class="text-red-400">Audit generation failed. Please try again.</span>';
-            }
-        }
-
-        // 3. STEP 2 FRONTEND: RAZORPAY STANDARD WEB CHECKOUT
-        async function startCheckout(productId, title, amount) {
-            const email = prompt(`Instant Delivery Email for "${title}" (₹${amount}):`);
-            if(!email || !email.includes('@')) return alert('Valid email required for license delivery.');
-            const name = prompt("Your Name / Business Name:") || email.split('@')[0];
-
-            try {
-                // Call backend to create Razorpay Order
-                const res = await fetch('/api/create-order', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productId, clientEmail: email, clientName: name })
-                });
-
-                const orderData = await res.json();
-                if (!res.ok || orderData.error) {
-                    return alert('Order creation failed: ' + (orderData.error || 'Server error'));
-                }
-
-                // Open Razorpay Standard Modal
-                const options = {
-                    key: orderData.key_id,
-                    amount: orderData.amount,
-                    currency: orderData.currency,
-                    name: "VIXAI Corporation",
-                    description: title,
-                    order_id: orderData.order_id,
-                    prefill: {
-                        name: name,
-                        email: email
-                    },
-                    theme: {
-                        color: "#06b6d4"
-                    },
-                    handler: async function (response) {
-                        // On Success: Send all 3 tokens to backend verify endpoint
-                        try {
-                            const verifyRes = await fetch('/api/verify-payment', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    razorpay_order_id: response.razorpay_order_id,
-                                    razorpay_payment_id: response.razorpay_payment_id,
-                                    razorpay_signature: response.razorpay_signature,
-                                    productId: productId,
-                                    clientEmail: email
-                                })
-                            });
-
-                            const verifyData = await verifyRes.json();
-                            if (verifyData.success) {
-                                alert(`🎉 PAYMENT VERIFIED & FULFILLED!\n\nProduct: ${verifyData.order.item}\nAmount: ₹${verifyData.order.amount}\nPayment ID: ${response.razorpay_payment_id}\nLicense Key: ${verifyData.order.licenseKey}\n20% Royalty to Son's Vault: ₹${verifyData.order.royaltyTransferred}\nStatus: Dispatched to ${email}`);
-                            } else {
-                                alert('Payment verification failed: ' + verifyData.error);
-                            }
-                        } catch (verErr) {
-                            alert('Payment verification network error: ' + verErr.message);
-                        }
-                    },
-                    modal: {
-                        ondismiss: function () {
-                            console.log('Payment modal dismissed by customer.');
-                        }
-                    }
-                };
-
-                const rzp = new Razorpay(options);
-                rzp.on('payment.failed', function (response) {
-                    alert(`Payment Failed!\nCode: ${response.error.code}\nReason: ${response.error.description}`);
-                });
-                rzp.open();
-            } catch (err) {
-                alert('Checkout initialization error: ' + err.message);
-            }
-        }
     </script>
 </body>
 </html>
