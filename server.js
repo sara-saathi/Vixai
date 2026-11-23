@@ -16,9 +16,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// PRODUCTION LIVE RAZORPAY INSTANCE
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_U3mbIzri3z4Y9f',
-    key_secret: process.env.RAZORPAY_KEY_SECRET || 'jpIdoPFHLs9Y3WrwnbOti9Uf'
+    key_id: process.env.RAZORPAY_KEY_ID || 'rzp_live_U3n15CrCq4no03',
+    key_secret: process.env.RAZORPAY_KEY_SECRET || 'c6azXKP4rTGZyGO64KgsIrHN'
 });
 
 const store = { leads: [], orders: [], royaltyVaultINR: 0, totalGrossRevenue: 0 };
@@ -40,7 +41,7 @@ app.post('/api/audit', (req, res) => {
     res.json({ success: true, audit });
 });
 
-// CREATE RAZORPAY ORDER
+// CREATE LIVE ORDER
 app.post('/api/create-order', async (req, res) => {
     try {
         const { productId, clientEmail, clientName } = req.body;
@@ -58,7 +59,7 @@ app.post('/api/create-order', async (req, res) => {
             order_id: order.id,
             amount: order.amount,
             currency: order.currency,
-            key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_U3mbIzri3z4Y9f',
+            key_id: process.env.RAZORPAY_KEY_ID || 'rzp_live_U3n15CrCq4no03',
             item_title: item.title
         });
     } catch (err) {
@@ -67,11 +68,11 @@ app.post('/api/create-order', async (req, res) => {
     }
 });
 
-// VERIFY PAYMENT & DISPATCH LICENSE
+// VERIFY LIVE PAYMENT & DISPATCH LICENSE
 app.post('/api/verify-payment', (req, res) => {
     try {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature, productId, clientEmail } = req.body;
-        const secret = process.env.RAZORPAY_KEY_SECRET || 'jpIdoPFHLs9Y3WrwnbOti9Uf';
+        const secret = process.env.RAZORPAY_KEY_SECRET || 'c6azXKP4rTGZyGO64KgsIrHN';
 
         const payload = `${razorpay_order_id}|${razorpay_payment_id}`;
         const generatedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
@@ -82,7 +83,7 @@ app.post('/api/verify-payment', (req, res) => {
 
         const item = catalog[productId] || catalog['prod-01'];
         const licenseKey = `VIXAI-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
-        const sonRoyalty = Math.round(item.price * 0.20);
+        const sonRoyalty = Math.round(item.price * 0.20); // 20% Irrevocable Legacy Cut
 
         const paidOrder = {
             orderId: razorpay_order_id,
@@ -107,5 +108,5 @@ app.post('/api/verify-payment', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🔥 VIXAI CLOUD ENGINE ONLINE ON PORT ${PORT}`);
+    console.log(`🔥 VIXAI LIVE CLOUD PRODUCTION ENGINE ONLINE ON PORT ${PORT}`);
 });
