@@ -23,8 +23,8 @@
             <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">VIXAI</span>
         </div>
         <div class="flex items-center space-x-4 text-xs font-bold">
-            <a href="#store" class="text-amber-400 hover:text-amber-300 transition">STORE</a>
-            <a href="#audit" class="text-cyan-400 hover:text-cyan-300 transition">FREE AUDIT</a>
+            <a href="#store" class="text-amber-400 hover:text-amber-300 transition">PRODUCTION STORE</a>
+            <a href="#vault" class="text-cyan-400 hover:text-cyan-300 transition">ROYALTY VAULT</a>
         </div>
     </nav>
 
@@ -61,7 +61,7 @@
         </p>
 
         <!-- ROYALTY VAULT -->
-        <section class="mt-10 w-full max-w-2xl glass p-6 rounded-2xl border border-amber-500/40 text-left glow-gold">
+        <section id="vault" class="mt-10 w-full max-w-2xl glass p-6 rounded-2xl border border-amber-500/40 text-left glow-gold">
             <div class="flex items-center justify-between">
                 <div>
                     <span class="text-xs uppercase text-amber-400 font-bold tracking-wider">The Rayan Rajesh Parikh Legacy Protocol</span>
@@ -80,7 +80,7 @@
                 <h3 class="text-lg font-bold text-white">⚡ Get Free Instant AI Business Audit</h3>
                 <span class="text-[10px] bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800">100% Free</span>
             </div>
-            <p class="text-xs text-gray-400 mt-1">Apna naam aur WhatsApp daalein. Hamara AI agent turant aapki business leakages report generate karega.</p>
+            <p class="text-xs text-gray-400 mt-1">Apna naam aur contact daalein. Hamara AI agent turant aapki business leakages report generate karega.</p>
 
             <form onsubmit="handleAudit(event)" class="mt-4 space-y-3">
                 <input type="text" id="leadName" placeholder="Your Full Name / Business Name" required class="w-full bg-gray-900 border border-gray-700 px-4 py-2.5 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400">
@@ -92,12 +92,12 @@
             <div id="auditOutput" class="hidden mt-4 p-4 bg-gray-900 rounded-xl border border-cyan-500/40 text-xs"></div>
         </section>
 
-        <!-- PRODUCTION STORE (FLOOR PRICE) -->
+        <!-- PRODUCTION STORE (RAZORPAY STANDARD WEB CHECKOUT) -->
         <section id="store" class="mt-16 w-full text-left">
             <div class="text-center mb-8">
                 <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Floor Price World-Class Catalog</span>
-                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery</h2>
-                <p class="text-gray-400 text-xs mt-1">Secure Instant Payment · Verified License Key Dispatched Immediately</p>
+                <h2 class="font-legacy text-2xl sm:text-3xl font-extrabold text-white mt-1">Instant Digital Delivery (Razorpay Secure)</h2>
+                <p class="text-gray-400 text-xs mt-1">UPI (GPay / PhonePe / Paytm) · Cards · Netbanking · Instant Cryptographic License</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹499</span>
-                        <button onclick="startCheckout('prod-01', 'Creator Viral Matrix', 499)" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-lg transition">Instant Buy</button>
+                        <button onclick="startCheckout('prod-01', 'Creator Viral Matrix', 499)" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹1,499</span>
-                        <button onclick="startCheckout('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition">Instant Buy</button>
+                        <button onclick="startCheckout('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-xl font-black text-white">₹2,499</span>
-                        <button onclick="startCheckout('prod-03', 'Portfolio Auto-Deployer', 2499)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs rounded-lg transition">Instant Buy</button>
+                        <button onclick="startCheckout('prod-03', 'Portfolio Auto-Deployer', 2499)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs rounded-lg transition">Buy with Razorpay</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
     </footer>
 
     <script>
-        // LIVE 9-NODE LOGO SCRIPT
+        // 1. LIVE 9-NODE LOGO SCRIPT
         const canvas = document.getElementById('vixai-logo');
         const ctx = canvas.getContext('2d');
         let pulse = 0;
@@ -187,7 +187,7 @@
         }
         animate();
 
-        // LEAD AUDIT FUNCTION
+        // 2. LEAD AUDIT FUNCTION
         async function handleAudit(e) {
             e.preventDefault();
             const name = document.getElementById('leadName').value;
@@ -196,36 +196,100 @@
             out.classList.remove('hidden');
             out.innerHTML = '<span class="text-cyan-400 animate-pulse">Running Vanguard AI Audit...</span>';
 
-            const res = await fetch('/api/audit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, contact })
-            });
-            const data = await res.json();
-            if(data.success) {
-                out.innerHTML = `
-                    <div class="text-emerald-400 font-bold">✅ Audit Report Dispatched for ${data.audit.client}</div>
-                    <ul class="mt-2 space-y-1 text-gray-300">
-                        ${data.audit.findings.map(f => `<li>• ${f}</li>`).join('')}
-                    </ul>
-                    <div class="mt-3 text-[11px] text-amber-400 font-bold">Floor Price Solution Recommended: WhatsApp Bot at ₹1,499.</div>
-                `;
+            try {
+                const res = await fetch('/api/audit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, contact })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    out.innerHTML = `
+                        <div class="text-emerald-400 font-bold">✅ Audit Report Dispatched for ${data.audit.client}</div>
+                        <ul class="mt-2 space-y-1 text-gray-300">
+                            ${data.audit.findings.map(f => `<li>• ${f}</li>`).join('')}
+                        </ul>
+                        <div class="mt-3 text-[11px] text-amber-400 font-bold">Floor Price Solution Recommended: WhatsApp Bot at ₹1,499.</div>
+                    `;
+                }
+            } catch (err) {
+                out.innerHTML = '<span class="text-red-400">Audit generation failed. Please try again.</span>';
             }
         }
 
-        // INSTANT DELIVERY CHECKOUT
+        // 3. STEP 2 FRONTEND: RAZORPAY STANDARD WEB CHECKOUT
         async function startCheckout(productId, title, amount) {
             const email = prompt(`Instant Delivery Email for "${title}" (₹${amount}):`);
             if(!email || !email.includes('@')) return alert('Valid email required for license delivery.');
+            const name = prompt("Your Name / Business Name:") || email.split('@')[0];
 
-            const res = await fetch('/api/checkout/process', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ productId, clientEmail: email, clientName: email.split('@')[0] })
-            });
-            const data = await res.json();
-            if(data.success) {
-                alert(`🎉 ORDER COMPLETED AUTONOMOUSLY!\n\nProduct: ${data.order.item}\nAmount: ₹${data.order.amount}\nLicense Key: ${data.order.licenseKey}\nRoyalty to Son's Vault: ₹${data.order.royaltyTransferred}\nStatus: Delivered to ${email}`);
+            try {
+                // Call backend to create Razorpay Order
+                const res = await fetch('/api/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId, clientEmail: email, clientName: name })
+                });
+
+                const orderData = await res.json();
+                if (!res.ok || orderData.error) {
+                    return alert('Order creation failed: ' + (orderData.error || 'Server error'));
+                }
+
+                // Open Razorpay Standard Modal
+                const options = {
+                    key: orderData.key_id,
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: "VIXAI Corporation",
+                    description: title,
+                    order_id: orderData.order_id,
+                    prefill: {
+                        name: name,
+                        email: email
+                    },
+                    theme: {
+                        color: "#06b6d4"
+                    },
+                    handler: async function (response) {
+                        // On Success: Send all 3 tokens to backend verify endpoint
+                        try {
+                            const verifyRes = await fetch('/api/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
+                                    productId: productId,
+                                    clientEmail: email
+                                })
+                            });
+
+                            const verifyData = await verifyRes.json();
+                            if (verifyData.success) {
+                                alert(`🎉 PAYMENT VERIFIED & FULFILLED!\n\nProduct: ${verifyData.order.item}\nAmount: ₹${verifyData.order.amount}\nPayment ID: ${response.razorpay_payment_id}\nLicense Key: ${verifyData.order.licenseKey}\n20% Royalty to Son's Vault: ₹${verifyData.order.royaltyTransferred}\nStatus: Dispatched to ${email}`);
+                            } else {
+                                alert('Payment verification failed: ' + verifyData.error);
+                            }
+                        } catch (verErr) {
+                            alert('Payment verification network error: ' + verErr.message);
+                        }
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            console.log('Payment modal dismissed by customer.');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response) {
+                    alert(`Payment Failed!\nCode: ${response.error.code}\nReason: ${response.error.description}`);
+                });
+                rzp.open();
+            } catch (err) {
+                alert('Checkout initialization error: ' + err.message);
             }
         }
     </script>
