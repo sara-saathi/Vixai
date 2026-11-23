@@ -9,6 +9,8 @@
     "cors": "^2.8.5",
     "dotenv": "^18.0.10",
     "express": "^4.19.2",
-    "razorpay": "^2.9.8"
+    "node-cron": "^4.6.0",
+    "razorpay": "^2.9.8",
+    "web-push": "^4.0.0"
   }
 }
