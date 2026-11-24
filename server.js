@@ -224,11 +224,16 @@ app.post("/api/subscribe", async (req, res) => {
 });
 
 const MORNING_QUOTES = [
-    "Subah bakhair! Aaj ka din sirf daudne ka nahi, apne sapno ko jeene ka hai. Make it count ✨",
-    "Aapki himmat aur neeyat hi aapki sabse badi taqat hai. Aaj naye faisle lijiye aur aage badiye 🌅",
-    "Har nayi subah ek naya panna hai. Aaj ki kahani shaandar likhna aapke haath me hai ☕",
-    "Rukna nahi hai, thakna nahi hai. Khuda ne aapme jo hunar diya hai, aaj duniya ko dikha do 🚀",
-    "Sukoon tab milta hai jab neeyat saaf aur koshish sachhi ho. Aaj ka din behtareen ho aapka 💫"
+    "Subah bakhair! Har din ek nayi umeed lekar aata hai ✨
+— Good morning! Every day brings a fresh hope.",
+    "Aapki himmat aur neeyat hi aapki sabse badi daulat hai 🌅
+— Your courage and intentions are your true wealth.",
+    "Rukna nahi hai, aaj ka din naye sapne sach karne ka hai ☕
+— Keep moving forward, today is made for your dreams.",
+    "Sukoon aur kamiyabi sachhi mehnat se milti hai 🚀
+— Peace and success belong to those who stay true.",
+    "Aaj ka din aapka hai, poore bharose ke sath shuru kijiye 💫
+— Today belongs to you, start with pure conviction."
 ];
 
 async function broadcastMorningVibe() {

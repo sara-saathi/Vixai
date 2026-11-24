@@ -418,5 +418,26 @@
 })();
 </script>
 
+
+<script>
+let currentCurrency = "INR";
+function switchCurrency(curr) {
+  currentCurrency = curr;
+  document.querySelectorAll(".price-inr").forEach(el => el.style.display = curr === "INR" ? "inline" : "none");
+  document.querySelectorAll(".price-usd").forEach(el => el.style.display = curr === "USD" ? "inline" : "none");
+  const btnINR = document.getElementById("btn-curr-inr");
+  const btnUSD = document.getElementById("btn-curr-usd");
+  if (btnINR && btnUSD) {
+    if (curr === "INR") {
+      btnINR.style.background = "#f59e0b"; btnINR.style.color = "#000";
+      btnUSD.style.background = "transparent"; btnUSD.style.color = "#94a3b8";
+    } else {
+      btnUSD.style.background = "#3b82f6"; btnUSD.style.color = "#fff";
+      btnINR.style.background = "transparent"; btnINR.style.color = "#94a3b8";
+    }
+  }
+}
+</script>
+
 </body>
 </html>
