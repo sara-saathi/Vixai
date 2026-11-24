@@ -193,6 +193,86 @@ app.post('/api/verify-payment', (req, res) => {
     }
 });
 
+
+// --- MORNING VIBES PUSH SUBSCRIBER SYSTEM ---
+app.get("/api/vapid-key", (req, res) => {
+    res.json({ publicKey: vapidKeys.publicKey });
+});
+
+app.post("/api/subscribe", async (req, res) => {
+    try {
+        const subscription = req.body;
+        if (!subscription || !subscription.endpoint) {
+            return res.status(400).json({ error: "Invalid subscription" });
+        }
+        if (!db.subscribers) db.subscribers = [];
+        const exists = db.subscribers.some(s => s.endpoint === subscription.endpoint);
+        if (!exists) {
+            db.subscribers.push(subscription);
+            saveStore();
+        }
+        const welcomePayload = JSON.stringify({
+            title: "☀️ Subah Bakhair & Swagat Hai!",
+            body: "Aapka Daily Morning Vibe activate ho gaya hai. Roz subah 8:00 AM aapko ek positive AI soch milegi ✨",
+            icon: "/icon.png"
+        });
+        await webpush.sendNotification(subscription, welcomePayload).catch(e => console.log("Welcome push note:", e.message));
+        res.json({ success: true, message: "Subscribed successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+const MORNING_QUOTES = [
+    "Subah bakhair! Aaj ka din sirf daudne ka nahi, apne sapno ko jeene ka hai. Make it count ✨",
+    "Aapki himmat aur neeyat hi aapki sabse badi taqat hai. Aaj naye faisle lijiye aur aage badiye 🌅",
+    "Har nayi subah ek naya panna hai. Aaj ki kahani shaandar likhna aapke haath me hai ☕",
+    "Rukna nahi hai, thakna nahi hai. Khuda ne aapme jo hunar diya hai, aaj duniya ko dikha do 🚀",
+    "Sukoon tab milta hai jab neeyat saaf aur koshish sachhi ho. Aaj ka din behtareen ho aapka 💫"
+];
+
+async function broadcastMorningVibe() {
+    if (!db.subscribers || db.subscribers.length === 0) return 0;
+    const quote = MORNING_QUOTES[Math.floor(Math.random() * MORNING_QUOTES.length)];
+    const payload = JSON.stringify({
+        title: "VIXAI · Aaj Ka Shubh Vichar ☀️",
+        body: quote,
+        icon: "/icon.png"
+    });
+    const validSubs = [];
+    for (const sub of db.subscribers) {
+        try {
+            await webpush.sendNotification(sub, payload);
+            validSubs.push(sub);
+        } catch (err) {
+            if (err.statusCode !== 410 && err.statusCode !== 404) {
+                validSubs.push(sub);
+            }
+        }
+    }
+    db.subscribers = validSubs;
+    saveStore();
+    console.log(`🌅 Morning vibe sent to ${validSubs.length} subscribers!`);
+    return validSubs.length;
+}
+
+let lastVibeDate = "";
+setInterval(() => {
+    try {
+        const nowIST = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+        const todayStr = nowIST.toDateString();
+        if (nowIST.getHours() === 8 && nowIST.getMinutes() === 0 && lastVibeDate !== todayStr) {
+            lastVibeDate = todayStr;
+            broadcastMorningVibe();
+        }
+    } catch (e) {}
+}, 60000);
+
+app.get("/api/send-vibe", async (req, res) => {
+    const sentCount = await broadcastMorningVibe();
+    res.json({ success: true, message: `Broadcasted to ${sentCount} subscribers` });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🔥 VIXAI PRODUCTION SERVER ACTIVE ON PORT ${PORT}`);
