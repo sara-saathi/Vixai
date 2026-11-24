@@ -439,5 +439,129 @@ function switchCurrency(curr) {
 }
 </script>
 
+
+<!-- FAIR GEO-PRICING & AUTO-LANGUAGE ENGINE -->
+<div id="fair-pricing-banner" style="display:none; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:12px; padding:10px 16px; margin:16px auto; max-width:640px; text-align:center; font-size:12.5px; color:#a7f3d0; font-family:sans-serif;">
+  <span style="font-weight:700;">🤍 Fair Global Pricing Active:</span> 
+  <span id="fair-pricing-text">Pricing adjusted with empathy for your local economy.</span>
+</div>
+
+<!-- Floating Language & Currency Selector Pill -->
+<div id="geo-floating-pill" style="position:fixed; bottom:16px; left:16px; z-index:99999; background:rgba(15,23,42,0.9); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding:6px 14px; display:flex; align-items:center; gap:8px; font-size:12px; color:#e2e8f0; box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+  <span id="geo-country-flag">🌍</span>
+  <span id="geo-curr-label" style="font-weight:700; color:#ffb74d;">INR (₹)</span>
+  <span style="color:rgba(255,255,255,0.2);">|</span>
+  <div id="google_translate_element" style="display:inline-block;"></div>
+</div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: "en",
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, "google_translate_element");
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+(function() {
+  const TIER1_COUNTRIES = ["US", "GB", "CA", "AU", "DE", "FR", "AE", "SA", "SG", "CH", "NL", "SE", "NO", "DK", "JP", "KW", "QA", "OM"];
+  const TIER3_STRUGGLING = ["BD", "PK", "NP", "LK", "NG", "KE", "EG", "GH", "ZW", "VE", "AR", "TR", "ID", "PH", "VN", "YE", "SY", "AF"];
+
+  const PRICING_TABLE = {
+    tier1: { curr: "USD", symbol: "$", p1: 19, p2: 49, p3: 79, label: "Global USD ($)" },
+    tier2: { curr: "INR", symbol: "₹", p1: 499, p2: 1499, p3: 2499, label: "India INR (₹)" },
+    tier3: { curr: "USD", symbol: "$", p1: 4, p2: 12, p3: 24, label: "Subsidized USD ($)" }
+  };
+
+  let activeTier = "tier2";
+  let activeCountry = "IN";
+
+  function applyTier(tierKey, countryCode) {
+    activeTier = tierKey;
+    const cfg = PRICING_TABLE[tierKey];
+    
+    // Update store card prices
+    const pEls = document.querySelectorAll("span.text-xl.font-black.text-white");
+    if (pEls.length >= 3) {
+      pEls[0].innerText = cfg.symbol + cfg.p1.toLocaleString();
+      pEls[1].innerText = cfg.symbol + cfg.p2.toLocaleString();
+      pEls[2].innerText = cfg.symbol + cfg.p3.toLocaleString();
+    }
+    
+    const payPriceEl = document.getElementById("payPrice");
+    if (payPriceEl) payPriceEl.innerText = cfg.symbol + cfg.p1.toLocaleString();
+
+    // Update Pill
+    const currLabel = document.getElementById("geo-curr-label");
+    if (currLabel) currLabel.innerText = cfg.label;
+
+    // Fair Pricing Banner
+    const banner = document.getElementById("fair-pricing-banner");
+    const bannerText = document.getElementById("fair-pricing-text");
+    if (tierKey === "tier3") {
+      banner.style.display = "block";
+      bannerText.innerText = "65% Solidarity Subsidy active for your region. Zero exploitation, pay with a happy heart 🤍";
+    } else if (tierKey === "tier1") {
+      banner.style.display = "block";
+      banner.style.borderColor = "rgba(59,130,246,0.3)";
+      banner.style.background = "rgba(59,130,246,0.1)";
+      bannerText.innerHTML = "Standard Global Enterprise Pricing ($ USD).";
+    } else {
+      banner.style.display = "none";
+    }
+  }
+
+  function setLanguageByCountry(country) {
+    if (country === "IN") return; // India stays in Clean English!
+    
+    let targetLang = "en";
+    if (["SA", "AE", "QA", "KW", "OM", "BH", "EG"].includes(country)) targetLang = "ar";
+    else if (["FR", "BE", "CH"].includes(country)) targetLang = "fr";
+    else if (["DE", "AT"].includes(country)) targetLang = "de";
+    else if (["ES", "MX", "AR", "CO"].includes(country)) targetLang = "es";
+    else if (["RU", "BY", "KZ"].includes(country)) targetLang = "ru";
+
+    if (targetLang !== "en") {
+      document.cookie = "googtrans=/en/" + targetLang + "; path=/;";
+      document.cookie = "googtrans=/en/" + targetLang + "; domain=." + location.hostname + "; path=/;";
+    }
+  }
+
+  // Fast Geo Detection
+  async function detectGeo() {
+    let country = "IN";
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (!tz.includes("Kolkata") && !tz.includes("Calcutta")) {
+        const res = await fetch("https://api.country.is", { cache: "no-store" });
+        const data = await res.json();
+        if (data && data.country) country = data.country.toUpperCase();
+      }
+    } catch (e) {
+      console.log("Geo fallback:", e);
+    }
+
+    activeCountry = country;
+    const flagEl = document.getElementById("geo-country-flag");
+    if (flagEl) flagEl.innerText = country === "IN" ? "🇮🇳" : (TIER1_COUNTRIES.includes(country) ? "🌍" : "🤝");
+
+    if (country === "IN") {
+      applyTier("tier2", country);
+    } else if (TIER1_COUNTRIES.includes(country)) {
+      applyTier("tier1", country);
+    } else {
+      applyTier("tier3", country);
+    }
+
+    setLanguageByCountry(country);
+  }
+
+  window.addEventListener("DOMContentLoaded", detectGeo);
+})();
+</script>
+
 </body>
 </html>

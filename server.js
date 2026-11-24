@@ -122,9 +122,9 @@ const razorpay = new Razorpay({
 });
 
 const catalog = {
-    'prod-01': { title: 'Creator Viral Matrix', inr: 499, usd: 9 },
-    'prod-02': { title: 'SME WhatsApp & Invoicing Bot', inr: 1499, usd: 29 },
-    'prod-03': { title: 'Portfolio Auto-Deployer', inr: 2499, usd: 49 }
+    "prod-01": { title: "Autonomous WhatsApp AI Bot", inr: 499, usd: 19, subUsd: 4 },
+    "prod-02": { title: "Full VIXAI Business Suite", inr: 1499, usd: 49, subUsd: 12 },
+    "prod-03": { title: "Enterprise Custom Intelligence", inr: 2499, usd: 79, subUsd: 24 }
 };
 
 app.post('/api/create-order', async (req, res) => {
