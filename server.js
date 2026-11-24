@@ -166,7 +166,33 @@ app.post('/api/verify-payment', (req, res) => {
         const isUSD = currency.toUpperCase() === 'USD';
         const amountINR = isUSD ? (item.usd * 85) : item.inr;
         const licenseKey = `VIXAI-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
-        const sonRoyalty = Math.round(amountINR * 0.20);
+        
+        const sonTotalRoyalty = Math.round(amountINR * 0.20);
+        const sonWealthShare = Math.round(sonTotalRoyalty * 0.80); // 80% PPF/Gold/SIP
+        const sonPocketShare = sonTotalRoyalty - sonWealthShare;    // 20% Pocket Money
+
+        if (!db.armaanVault) {
+            db.armaanVault = {
+                beneficiaryName: "Armaan Rayan Parikh",
+                totalEarnedINR: 0,
+                wealthVaultINR: 0,
+                pocketVaultINR: 0,
+                ledger: []
+            };
+        }
+        db.armaanVault.totalEarnedINR += sonTotalRoyalty;
+        db.armaanVault.wealthVaultINR += sonWealthShare;
+        db.armaanVault.pocketVaultINR += sonPocketShare;
+        db.childWalletINR = db.armaanVault.totalEarnedINR;
+
+        db.armaanVault.ledger.unshift({
+            date: new Date().toLocaleString(),
+            orderId: razorpay_order_id,
+            totalRoyalty: sonTotalRoyalty,
+            wealth80: sonWealthShare,
+            pocket20: sonPocketShare
+        });
+
 
         const paidOrder = {
             orderId: razorpay_order_id,
@@ -276,6 +302,60 @@ setInterval(() => {
 app.get("/api/send-vibe", async (req, res) => {
     const sentCount = await broadcastMorningVibe();
     res.json({ success: true, message: `Broadcasted to ${sentCount} subscribers` });
+});
+
+
+// --- ARMAAN RAYAN PARIKH SOVEREIGN VAULT & SECURITY LOCK ---
+app.get("/api/armaan-vault", (req, res) => {
+    if (!db.armaanVault) {
+        db.armaanVault = {
+            beneficiaryName: "Armaan Rayan Parikh",
+            totalEarnedINR: db.childWalletINR || 0,
+            wealthVaultINR: Math.round((db.childWalletINR || 0) * 0.80),
+            pocketVaultINR: Math.round((db.childWalletINR || 0) * 0.20),
+            ledger: []
+        };
+    }
+    res.json(db.armaanVault);
+});
+
+app.post("/api/armaan-vault/withdraw", (req, res) => {
+    try {
+        const { beneficiaryName, upiOrAccount, amount } = req.body;
+        const REQUIRED_NAME = "ARMAAN RAYAN PARIKH";
+
+        // STRICT IDENTITY NAME CHECK
+        const cleanInputName = (beneficiaryName || "").trim().toUpperCase();
+        if (cleanInputName !== REQUIRED_NAME && !cleanInputName.includes("ARMAAN") || !cleanInputName.includes("PARIKH")) {
+            return res.status(403).json({
+                success: false,
+                error: "SECURITY LOCK: Beneficiary name does not match Armaan Rayan Parikh. Funds retained in Vault."
+            });
+        }
+
+        const amt = parseFloat(amount);
+        if (!amt || amt <= 0 || amt > (db.armaanVault.pocketVaultINR || 0)) {
+            return res.status(400).json({ success: false, error: "Invalid withdrawal amount or exceeds Pocket Vault balance." });
+        }
+
+        db.armaanVault.pocketVaultINR -= amt;
+        db.armaanVault.ledger.unshift({
+            date: new Date().toLocaleString(),
+            type: "WITHDRAWAL",
+            amount: amt,
+            destination: upiOrAccount,
+            beneficiaryVerified: cleanInputName
+        });
+        saveStore();
+
+        res.json({
+            success: true,
+            message: `Verified! ₹${amt} approved for transfer to Armaan Rayan Parikh (${upiOrAccount}).`,
+            remainingPocketBalance: db.armaanVault.pocketVaultINR
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
 });
 
 const PORT = process.env.PORT || 3000;
