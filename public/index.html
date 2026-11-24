@@ -563,5 +563,139 @@ function googleTranslateElementInit() {
 })();
 </script>
 
+
+<!-- ================= SARAH AI INTERACTIVE LIVE BUSINESS SIMULATOR ================= -->
+<div id="sarah-simulator" style="margin: 40px auto; max-width: 820px; background: linear-gradient(180deg, #0e131f 0%, #080b12 100%); border: 1.5px solid rgba(251, 191, 36, 0.4); border-radius: 24px; padding: 28px 22px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(251, 191, 36, 0.15); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #f8fafc;">
+
+  <!-- Header -->
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; border-bottom: 1px solid rgba(255,255,255,0.1); pb-4; padding-bottom:16px; margin-bottom: 20px;">
+    <div>
+      <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:3px 12px; font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; letter-spacing:0.5px;">
+        <span>🔥</span> 100% LIVE SIMULATION
+      </div>
+      <h2 style="margin: 8px 0 0; font-size: 22px; font-weight: 900; color:#fff;">Sarah AI Autonomous Sales Engine</h2>
+      <p style="margin: 2px 0 0; font-size: 12px; color: #94a3b8;">Dekhiye kaise Sarah bina kisi human ke customer ko close aur invoice banati hai</p>
+    </div>
+    
+    <!-- Tab Controls -->
+    <div style="display:flex; gap:8px; background:rgba(255,255,255,0.05); padding:4px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+      <button id="tab-btn-objection" onclick="switchSimTab('objection')" style="background:#fbbf24; color:#0f172a; border:none; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:800; cursor:pointer; transition:0.2s;">
+        💥 Objection Crusher
+      </button>
+      <button id="tab-btn-invoice" onclick="switchSimTab('invoice')" style="background:transparent; color:#94a3b8; border:none; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; transition:0.2s;">
+        🧾 1-Click Invoice Generator
+      </button>
+    </div>
+  </div>
+
+  <!-- TAB 1: OBJECTION CRUSHER -->
+  <div id="sim-tab-objection">
+    <p style="font-size:13px; color:#cbd5e1; margin-bottom:12px; font-weight:600;">
+      Aapke dhande me customer ka sabse bada bahana select kijiye:
+    </p>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:16px;">
+      <button onclick="pickObjection('expensive')" class="obj-btn" id="obj-expensive" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:12px; text-align:left; color:#e2e8f0; font-size:12.5px; cursor:pointer;">
+        🏷️ <strong>"Bohot mehenga hai, discount do."</strong>
+      </button>
+      <button onclick="pickObjection('later')" class="obj-btn" id="obj-later" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:12px; text-align:left; color:#e2e8f0; font-size:12.5px; cursor:pointer;">
+        ⏳ <strong>"Main baad me soch kar bataunga."</strong>
+      </button>
+      <button onclick="pickObjection('competitor')" class="obj-btn" id="obj-competitor" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:12px; text-align:left; color:#e2e8f0; font-size:12.5px; cursor:pointer;">
+        🔄 <strong>"Market me doosra saste me de raha hai."</strong>
+      </button>
+    </div>
+
+    <!-- Live Sarah AI Response Box -->
+    <div style="background:#05070d; border:1px solid rgba(251,191,36,0.3); border-radius:16px; padding:16px; position:relative;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <span style="font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; display:flex; align-items:center; gap:6px;">
+          <span>🤖</span> SARAH AI (0.3s RESPONSE ENGINE):
+        </span>
+        <span id="obj-speed" style="font-size:10.5px; color:#10b981; font-weight:700;">⚡ Closed in 0.38 seconds</span>
+      </div>
+      <div id="obj-reply-box" style="font-size:13.5px; color:#f1f5f9; line-height:1.6; font-style:italic;">
+        "Bhai, saste aur acche me sirf ek cheez ka farq hota hai — pachtawe ka. Hamara product aapka din ka 2 ghanta aur hazaron rupaye bachaata hai. Chaliye aaj se shuru karte hain, pehla order ready karoon aapka? ✨"
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: 1-CLICK INSTANT INVOICE GENERATOR -->
+  <div id="sim-tab-invoice" style="display:none;">
+    <p style="font-size:13px; color:#cbd5e1; margin-bottom:12px; font-weight:600;">
+      Apna business name aur amount daal kar dekhiye Sarah kaise live branded invoice banati hai:
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+      <input type="text" id="inv-bname" value="Rayan Exports & Traders" placeholder="Business Name" style="flex:2; min-width:180px; background:#05070d; border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:10px 14px; font-size:12.5px; color:#fff;">
+      <input type="number" id="inv-amt" value="1499" placeholder="Amount (₹)" style="flex:1; min-width:100px; background:#05070d; border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:10px 14px; font-size:12.5px; color:#fff;">
+      <button onclick="generateLiveInvoice()" style="background:#10b981; color:#fff; border:none; padding:10px 18px; border-radius:10px; font-size:13px; font-weight:800; cursor:pointer;">
+        ⚡ Generate Live Invoice
+      </button>
+    </div>
+
+    <!-- Live Rendered Invoice Card -->
+    <div id="inv-preview" style="background:#fff; color:#0f172a; border-radius:14px; padding:18px; font-family:monospace; box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:space-between; border-bottom:1.5px dashed #cbd5e1; padding-bottom:8px; margin-bottom:10px;">
+        <div>
+          <strong id="inv-card-name" style="font-size:15px; font-family:sans-serif;">Rayan Exports & Traders</strong>
+          <div style="font-size:10px; color:#64748b;">AUTONOMOUS AI INVOICE #VIX-9941</div>
+        </div>
+        <div style="text-align:right;">
+          <span style="background:#dcfce7; color:#15803d; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">PAID VERIFIED</span>
+          <div style="font-size:10px; color:#64748b; margin-top:2px;">Date: Today</div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
+        <span>VIXAI Sovereign WhatsApp Bot Suite</span>
+        <strong id="inv-card-amt">₹1,499</strong>
+      </div>
+      <div style="border-top:1.5px dashed #cbd5e1; padding-top:8px; display:flex; justify-content:space-between; font-size:11px; color:#64748b;">
+        <span>Status: Dispatched via Sarah AI</span>
+        <span style="color:#059669; font-weight:700;">80% Wealth / 20% Pocket Split Saved</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const OBJECTION_DATA = {
+  expensive: "Bhai, saste aur acche me sirf ek cheez ka farq hota hai — pachtawe ka. Hamara product aapka din ka 2 ghanta aur hazaron rupaye bachaata hai. Chaliye aaj se shuru karte hain, pehla order ready karoon aapka? ✨",
+  later: "Bilkul bhai, soch lijiye! Lekin yaad rakhiye ki jab tak aap soch rahe hain, tab tak aapke competitor ke orders auto-reply bot close kar raha hai. Aaj se shuru karein aur kal subah tak results dekhein? 🚀",
+  competitor: "Market me saste log zaroor hain bhai, lekin jab raat ke 2 baje customer aayega toh unka sasta bot crash ho jayega. VIXAI 99.9% uptime aur Sarah AI intelligence ke sath aata hai. Bharosa quality par kijiye 🤝"
+};
+
+function switchSimTab(tab) {
+  const isObj = tab === "objection";
+  document.getElementById("sim-tab-objection").style.display = isObj ? "block" : "none";
+  document.getElementById("sim-tab-invoice").style.display = isObj ? "none" : "block";
+  document.getElementById("tab-btn-objection").style.background = isObj ? "#fbbf24" : "transparent";
+  document.getElementById("tab-btn-objection").style.color = isObj ? "#0f172a" : "#94a3b8";
+  document.getElementById("tab-btn-invoice").style.background = isObj ? "transparent" : "#10b981";
+  document.getElementById("tab-btn-invoice").style.color = isObj ? "#94a3b8" : "#fff";
+}
+
+function pickObjection(type) {
+  document.querySelectorAll(".obj-btn").forEach(b => {
+    b.style.borderColor = "rgba(255,255,255,0.15)";
+    b.style.background = "rgba(255,255,255,0.04)";
+  });
+  const el = document.getElementById("obj-" + type);
+  if (el) {
+    el.style.borderColor = "#fbbf24";
+    el.style.background = "rgba(251,191,36,0.1)";
+  }
+  document.getElementById("obj-reply-box").innerText = OBJECTION_DATA[type];
+}
+
+function generateLiveInvoice() {
+  const bname = document.getElementById("inv-bname").value || "Business Partner";
+  const amt = document.getElementById("inv-amt").value || "1499";
+  document.getElementById("inv-card-name").innerText = bname;
+  document.getElementById("inv-card-amt").innerText = "₹" + Number(amt).toLocaleString();
+}
+</script>
+
 </body>
 </html>
