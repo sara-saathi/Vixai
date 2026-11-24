@@ -21,6 +21,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.get("/HRP", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
+app.get("/armaan", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 const DATA_FILE = path.join(__dirname, 'store.json');
