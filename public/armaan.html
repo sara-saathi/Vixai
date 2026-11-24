@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armaan Rayan Parikh · Sovereign Vault</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #07090e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #f8fafc; }
+    .glass-card { background: rgba(18, 24, 38, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 215, 0, 0.2); }
+    .gold-gradient { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
+    .gold-text { background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <!-- PIN LOCK SCREEN -->
+  <div id="pinScreen" class="w-full max-w-sm glass-card rounded-3xl p-8 text-center shadow-2xl border border-amber-500/30">
+    <div class="text-4xl mb-3">👑</div>
+    <h1 class="text-xl font-black gold-text tracking-wide uppercase">Armaan Rayan Parikh</h1>
+    <p class="text-xs text-slate-400 mt-1 mb-6">Sovereign Royalty Vault · Father's Trust</p>
+    
+    <div class="mb-6">
+      <input type="password" id="pinInput" maxlength="4" placeholder="••••" class="w-36 text-center text-3xl font-black tracking-widest bg-slate-900 border-2 border-amber-500/50 rounded-2xl py-3 text-amber-400 focus:outline-none focus:border-amber-400 shadow-inner">
+      <div id="pinError" class="text-xs text-red-400 mt-2 hidden">Incorrect Passcode. Access Denied.</div>
+    </div>
+    
+    <button onclick="unlockVault()" class="w-full gold-gradient text-slate-950 font-black py-3.5 rounded-2xl shadow-lg hover:opacity-95 transition">
+      Unlock Sovereign Vault 🔒
+    </button>
+  </div>
+
+  <!-- VAULT DASHBOARD -->
+  <div id="vaultDashboard" class="w-full max-w-2xl hidden py-6">
+    <div class="glass-card rounded-3xl p-6 md:p-8 shadow-2xl border border-amber-500/30">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-5 mb-6">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">👑</span>
+            <h1 class="text-xl md:text-2xl font-black gold-text">Armaan Rayan Parikh</h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Sovereign 20% Life Royalty Engine · Rayan Parikh Legacy</p>
+        </div>
+        <button onclick="location.reload()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
+          Lock 🔒
+        </button>
+      </div>
+
+      <!-- Total Royalty Banner -->
+      <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 rounded-2xl p-5 mb-6">
+        <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">Total Royalty Earned (20% of All Vixai Sales)</div>
+        <div id="totalEarned" class="text-3xl md:text-4xl font-black text-white">₹0</div>
+        <div class="text-[11px] text-slate-400 mt-1">Automatically credited in real-time from every paid order</div>
+      </div>
+
+      <!-- 80 / 20 Split Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- 80% Wealth Builder -->
+        <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">🛡️ 80% Future Wealth</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-full">PPF · Gold · SIP</span>
+          </div>
+          <div id="wealthBalance" class="text-2xl font-black text-white">₹0</div>
+          <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+            Locked for compounding growth. Building your multi-generational empire.
+          </p>
+        </div>
+
+        <!-- 20% Pocket Money -->
+        <div class="bg-amber-950/20 border border-amber-500/30 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">💳 20% Pocket Money</span>
+            <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded-full">Liquid Available</span>
+          </div>
+          <div id="pocketBalance" class="text-2xl font-black text-white">₹0</div>
+          <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+            Available for verified personal withdrawal. Spend or save with honor.
+          </p>
+        </div>
+      </div>
+
+      <!-- Withdrawal Box with Strict Name Check -->
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 mb-6">
+        <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+          <span>🔒</span> Claim Pocket Money (Strict Identity Verification)
+        </h3>
+        <p class="text-[11.5px] text-slate-400 mb-4 leading-relaxed">
+          Beneficiary account <strong class="text-amber-400">MUST be legally registered as "Armaan Rayan Parikh"</strong>. Any mismatch will automatically reject and safeguard the funds.
+        </p>
+
+        <div class="space-y-3">
+          <div>
+            <label class="text-[11px] text-slate-400 font-bold uppercase">Beneficiary Full Name</label>
+            <input type="text" id="benName" value="Armaan Rayan Parikh" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="text-[11px] text-slate-400 font-bold uppercase">Armaan's UPI ID / Account</label>
+              <input type="text" id="benDest" placeholder="armaan@okhdfcbank" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+            </div>
+            <div>
+              <label class="text-[11px] text-slate-400 font-bold uppercase">Amount (₹)</label>
+              <input type="number" id="claimAmt" placeholder="500" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+            </div>
+          </div>
+          <button onclick="requestWithdrawal()" class="w-full bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 font-bold py-2.5 rounded-xl text-xs transition">
+            Verify Identity & Withdraw to Armaan's Account 🚀
+          </button>
+        </div>
+        <div id="claimMsg" class="text-xs mt-3 hidden p-2.5 rounded-xl"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const MASTER_PIN = "2404";
+
+    function unlockVault() {
+      const pin = document.getElementById("pinInput").value;
+      if (pin === MASTER_PIN) {
+        document.getElementById("pinScreen").classList.add("hidden");
+        document.getElementById("vaultDashboard").classList.remove("hidden");
+        loadVaultData();
+      } else {
+        document.getElementById("pinError").classList.remove("hidden");
+      }
+    }
+
+    async function loadVaultData() {
+      try {
+        const res = await fetch("/api/armaan-vault");
+        const data = await res.json();
+        document.getElementById("totalEarned").innerText = "₹" + (data.totalEarnedINR || 0).toLocaleString();
+        document.getElementById("wealthBalance").innerText = "₹" + (data.wealthVaultINR || 0).toLocaleString();
+        document.getElementById("pocketBalance").innerText = "₹" + (data.pocketVaultINR || 0).toLocaleString();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function requestWithdrawal() {
+      const beneficiaryName = document.getElementById("benName").value;
+      const upiOrAccount = document.getElementById("benDest").value;
+      const amount = document.getElementById("claimAmt").value;
+      const msg = document.getElementById("claimMsg");
+
+      msg.classList.remove("hidden", "bg-red-900/40", "text-red-300", "bg-emerald-900/40", "text-emerald-300");
+
+      if (!upiOrAccount || !amount) {
+        msg.classList.add("bg-red-900/40", "text-red-300");
+        msg.innerText = "Kripya UPI/Account aur Amount sahi se bharein.";
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/armaan-vault/withdraw", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ beneficiaryName, upiOrAccount, amount })
+        });
+        const out = await res.json();
+
+        if (out.success) {
+          msg.classList.add("bg-emerald-900/40", "text-emerald-300");
+          msg.innerText = "✅ " + out.message;
+          loadVaultData();
+        } else {
+          msg.classList.add("bg-red-900/40", "text-red-300");
+          msg.innerText = "⛔ " + out.error;
+        }
+      } catch (err) {
+        msg.classList.add("bg-red-900/40", "text-red-300");
+        msg.innerText = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
