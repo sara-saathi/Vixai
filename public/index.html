@@ -20,9 +20,7 @@
         <span class="font-legacy tracking-widest text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-amber-300">VIXAI</span>
         <div class="flex items-center space-x-3 text-xs font-bold">
             <a href="#store" class="text-amber-400 hover:text-amber-300">CATALOG</a>
-            <button onclick="openFounderLogin()" class="px-3 py-1.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-black font-black rounded-lg transition hover:opacity-90">
-                👑 Founder Portal
-            </button>
+            
         </div>
     </nav>
 
@@ -63,89 +61,12 @@
                     <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-xl font-black text-white">₹499</span>
-                            <button onclick="showDemo('creator')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-400 border border-cyan-800 text-xs font-bold rounded-lg transition">🔍 View Demo</button>
-                        </div>
-                        <button onclick="openPayment('prod-01', 'Creator Viral Matrix', 499)" class="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-lg transition">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- PRODUCT 2 -->
-                <div class="glass p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">SME Automation</span>
-                        <h3 class="text-lg font-bold text-white mt-1">WhatsApp & Invoice Bot</h3>
-                        <p class="text-xs text-gray-400 mt-2">24/7 Client Auto-reply, Automated PDF Invoices, and lead collection workflows.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-black text-white">₹1,499</span>
-                            <button onclick="showDemo('whatsapp')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-400 border border-cyan-800 text-xs font-bold rounded-lg transition">⚡ Live Bot Demo</button>
-                        </div>
-                        <button onclick="openPayment('prod-02', 'WhatsApp & Invoice Bot', 1499)" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs rounded-lg transition">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- PRODUCT 3 -->
-                <div class="glass p-6 rounded-2xl border border-emerald-500/30 flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">High-Margin Web</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Portfolio Auto-Deployer</h3>
-                        <p class="text-xs text-gray-400 mt-2">Personal Developer & Creator AI Portfolio source code + 1-Click Free Hosting.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-black text-white">₹2,499</span>
-                            <button onclick="showDemo('portfolio')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-400 border border-cyan-800 text-xs font-bold rounded-lg transition">🌐 View Site Preview</button>
-                        </div>
-                        <button onclick="openPayment('prod-03', 'Portfolio Auto-Deployer', 2499)" class="w-full py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-bold text-xs rounded-lg transition">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- INTERACTIVE DEMO MODAL -->
-    <div id="demoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
-        <div class="glass p-6 rounded-3xl border border-cyan-500/40 max-w-lg w-full text-left relative">
-            <button onclick="closeDemoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
-            <h3 id="demoTitle" class="text-lg font-bold text-white mb-2">Live Demo</h3>
-            <div id="demoContent" class="text-xs text-gray-300 space-y-3"></div>
-        </div>
-    </div>
-
-    <!-- PAYMENT MODAL -->
-    <div id="paymentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="glass p-6 rounded-2xl border border-gray-700 max-w-sm w-full text-center relative glow-gold">
-            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">✕</button>
-            <h3 id="payTitle" class="text-lg font-bold text-white">Product Title</h3>
-            <div id="payPrice" class="text-2xl font-black text-amber-400 my-2">₹499</div>
-            
-            <a id="upiLink" href="#" class="w-full py-3 mb-3 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
-                <span>⚡ Pay via UPI (PhonePe / GPay)</span>
-            </a>
-            <div class="p-3 bg-white rounded-xl inline-block my-2">
-                <img id="qrImg" src="" alt="Scan to Pay" class="w-36 h-36">
-            </div>
-            <div class="text-[11px] font-mono text-gray-400">UPI ID: <span class="text-cyan-400 font-bold">Q57363994@ybl</span></div>
-
-            <div class="mt-4 pt-3 border-t border-gray-800">
-                <button id="rzpBtn" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-xs rounded-xl transition border border-gray-700">
-                    Pay with Razorpay (Auto-Verify)
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOUNDER MODAL (P0802) -->
-    <div id="founderModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
-        <div class="glass p-6 rounded-3xl border border-amber-500/40 max-w-md w-full text-left relative glow-gold">
-            <button onclick="closeFounderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+                            
             <div id="fLogin">
                 <h3 class="text-lg font-bold text-amber-400">👑 Founder Command Center</h3>
                 <p class="text-xs text-gray-400 mb-3">Restricted: Rayan Rajesh Parikh</p>
                 <input type="password" id="pcode" placeholder="Enter P0802..." class="w-full bg-gray-900 border border-gray-700 px-4 py-2.5 rounded-xl text-white text-center font-mono text-sm tracking-widest mb-3">
-                <button onclick="loginFounder()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-black text-xs rounded-xl">Unlock Dashboard</button>
+                
             </div>
             <div id="fDash" class="hidden text-xs space-y-3">
                 <div class="border-b border-gray-800 pb-2 flex justify-between">
